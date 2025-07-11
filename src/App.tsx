@@ -1,10 +1,21 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import PlanParameters from "./components/PlanParameters";
+import PlanSelector from "./components/PlanSelector";
+import { getPlans, type PlansResponse } from "./utils/api";
 
 function App() {
+  const [planData, setPlanData] = useState<PlansResponse>({ plans: [] });
+
+  useEffect(() => {
+    (async () => {
+      const results = await getPlans();
+      setPlanData(results);
+    })();
+  }, []);
+
   return (
     <>
-      <PlanParameters />
+      <PlanSelector planResponse={planData} />
     </>
   );
 }
