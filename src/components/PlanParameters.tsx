@@ -6,16 +6,23 @@ import {
   materialCells,
 } from "@jsonforms/material-renderers";
 import { useState } from "react";
-import count_response from "../count-plan.json";
-import sanitizeSchema from "../schema";
+import sanitizeSchema from "../utils/schema";
+import type { Plan } from "../utils/api";
 
-const PlanParameters: React.FC = () => {
-  const schema = sanitizeSchema(count_response.parameter_schema);
+type PlanParametersProps = {
+  plan: Plan;
+};
+
+const PlanParameters: React.FC<PlanParametersProps> = (
+  props: PlanParametersProps,
+) => {
+  const schema = sanitizeSchema(props.plan.schema);
 
   const [data, setData] = useState({});
 
   return (
     <div>
+      <h2>{props.plan.name}</h2>
       <JsonForms
         schema={schema}
         data={data}

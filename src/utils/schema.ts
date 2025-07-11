@@ -1,4 +1,7 @@
-const shouldJustBeStrings = ["bluesky.protocols.Readable"];
+const shouldJustBeStrings = [
+  "bluesky.protocols.Readable",
+  "bluesky.protocols.Movable",
+];
 
 const sanitizeSchema = (schema: object): object => {
   const entries = Object.entries(schema);
