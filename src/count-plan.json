@@ -1,0 +1,58 @@
+{
+  "name": "count",
+  "description": "Reads from a number of devices.\n    Wraps bluesky.plans.count(det, num, delay, md=metadata) exposing only serializable\n    parameters and metadata.",
+  "parameter_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "detectors": {
+        "items": {
+          "enum": [
+            "sample_stage",
+            "sample_det",
+            "oav",
+            "synchrotron",
+            "panda"
+          ],
+          "type": "bluesky.protocols.Readable"
+        },
+        "title": "Detectors",
+        "type": "array",
+        "uniqueItems": true
+      },
+      "num": {
+        "title": "Num",
+        "type": "integer"
+      },
+      "delay": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          }
+        ],
+        "title": "Delay"
+      },
+      "metadata": {
+        "anyOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Metadata"
+      }
+    },
+    "required": [
+      "detectors"
+    ],
+    "title": "count",
+    "type": "object"
+  }
+}
