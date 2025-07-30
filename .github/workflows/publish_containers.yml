@@ -1,0 +1,49 @@
+name: Test Docker Image Build
+
+# TEMPORARY: Run on PRs and pushes to main, but do not publish the image
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_REPOSITORY: ghcr.io/DiamondLightSource/visr-ui
+
+jobs:
+  test-docker-build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry (noop unless pushing)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_REPOSITORY }}
+          tags: |
+            type=semver,pattern={{version}}
+
+      - name: Build Docker image (no push in test)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name == 'release' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
