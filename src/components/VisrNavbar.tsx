@@ -33,6 +33,11 @@ function VisrNavbar() {
           </NavLinks>
         </Box>
       }
+      rightSlot={
+        <Box sx={{ marginLeft: 4 }}>
+          <ColourSchemeButton />
+        </Box>
+      }
     />
   );
 }
