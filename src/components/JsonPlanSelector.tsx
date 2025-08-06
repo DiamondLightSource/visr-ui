@@ -11,7 +11,7 @@ const JsonPlanSelector = ({ planResponse }: JsonPlanSelectorProps) => (
     plans={planResponse.plans}
     getName={plan => plan.name}
     renderPlan={plan => <PlanParameters plan={plan} />}
-    title="Plans (jsonforms)"
+    title="Plans"
   />
 );
 

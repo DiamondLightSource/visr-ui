@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import NumberTextField from "./NumberTextField";
 import RunPlanButton from "./RunPlanButton";
 
@@ -29,13 +29,6 @@ function SpectroscopyForm() {
         flexDirection: "column",
       }}
     >
-      <Typography
-        variant="h5"
-        component="h1"
-        sx={{ mb: 2, fontWeight: "bold" }}
-      >
-        spectroscopy_scan
-      </Typography>
       <Box
         sx={{
           display: "grid",
@@ -51,9 +44,16 @@ function SpectroscopyForm() {
         <NumberTextField
           formData={formData}
           setFormData={setFormData}
-          field="numbers_of_points"
-          step={1}
-          label="Number of Points"
+          field="grid_origin_x"
+          step={0.1}
+          label="Grid origin x"
+        />
+        <NumberTextField
+          formData={formData}
+          setFormData={setFormData}
+          field="grid_origin_y"
+          step={0.1}
+          label="Grid origin y"
         />
         <NumberTextField
           formData={formData}
@@ -65,16 +65,9 @@ function SpectroscopyForm() {
         <NumberTextField
           formData={formData}
           setFormData={setFormData}
-          field="grid_origin_x"
-          step={0.1}
-          label="Grid origin x"
-        />
-        <NumberTextField
-          formData={formData}
-          setFormData={setFormData}
-          field="grid_origin_y"
-          step={0.1}
-          label="Grid origin y"
+          field="numbers_of_points"
+          step={1}
+          label="Number of Points"
         />
         <NumberTextField
           formData={formData}

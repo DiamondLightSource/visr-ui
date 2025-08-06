@@ -2,9 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
-import JsonFormsPlans from "./routes/JsonFormsPlans.tsx";
+import JsonFormsPlans from "./routes/Plans.tsx";
 import Dashboard from "./routes/Dashboard.tsx";
-import Plans from "./routes/Plans.tsx";
+import Spectroscopy from "./routes/Spectroscopy.tsx";
 
 async function enableMocking() {
   if (import.meta.env.DEV) {
@@ -19,12 +19,12 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },
   {
-    path: "/jsonformsplans",
+    path: "/plans",
     element: <JsonFormsPlans />,
   },
   {
-    path: "/plans",
-    element: <Plans />,
+    path: "/spectroscopy",
+    element: <Spectroscopy />,
   },
 ]);
 

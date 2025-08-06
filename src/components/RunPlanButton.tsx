@@ -26,7 +26,7 @@ const RunPlanButton = ({
         await createAndStartTask(taskRequest);
       }}
     >
-      Run Plan
+      Run
     </Button>
   );
 };

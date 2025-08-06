@@ -1,23 +1,28 @@
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { getPlans, type PlansResponse } from "../utils/api";
+import JsonPlanSelector from "../components/JsonPlanSelector";
 import VisrNavbar from "../components/VisrNavbar";
-import CustomPlanSelector, {
-  type PlanComponent,
-} from "../components/CustomPlanSelector";
-import SpectroscopyForm from "../components/SpectroscopyForm";
 
-function Plans() {
-  const plans: PlanComponent[] = [
-    { name: "spectroscopy_scan", FormComponent: SpectroscopyForm },
-  ];
+function JsonFormsPlans() {
+  const [planData, setPlanData] = useState<PlansResponse>({ plans: [] });
+
+  useEffect(() => {
+    (async () => {
+      const results = await getPlans();
+      setPlanData(results);
+    })();
+  }, []);
 
   return (
     <>
       <VisrNavbar />
       <Box display={"flex"} justifyContent={"center"} sx={{ mt: 3 }}>
         <CustomPlanSelector plans={plans} />
+        <JsonPlanSelector planResponse={planData} />
       </Box>
     </>
   );
 }
 
-export default Plans;
+export default JsonFormsPlans;

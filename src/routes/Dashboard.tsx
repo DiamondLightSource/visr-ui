@@ -16,21 +16,21 @@ function Dashboard() {
           <Stack direction={"row"} spacing={5}>
             <Button
               component={Link}
-              to="/plans"
+              to="/spectroscopy"
               variant="contained"
               startIcon={<ArticleIcon />}
               sx={{ width: 150, height: 50 }}
             >
-              Plans
+              Spectroscopy
             </Button>
             <Button
               component={Link}
-              to="/jsonformsplans"
+              to="/plans"
               variant="contained"
               startIcon={<FeedIcon />}
               sx={{ width: 150, height: 50 }}
             >
-              Plans (json)
+              Plans
             </Button>
           </Stack>
         </Stack>

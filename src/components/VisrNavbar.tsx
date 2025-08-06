@@ -1,38 +1,39 @@
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Navbar, NavLink, NavLinks } from "@diamondlightsource/sci-react-ui";
+import {
+  ColourSchemeButton,
+  Navbar,
+  NavLink,
+  NavLinks,
+} from "@diamondlightsource/sci-react-ui";
 
 function VisrNavbar() {
   return (
-    <>
-      <Navbar
-        logo="theme"
-        leftSlot={
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              flexWrap: "nowrap",
-              overflow: "hidden",
-            }}
-          >
-            <NavLinks>
-              <NavLink to="/" linkComponent={Link}>
-                Home
-              </NavLink>
-              <NavLink to="/plans" linkComponent={Link}>
-                Plans
-              </NavLink>
-              <NavLink to="/jsonformsplans" linkComponent={Link}>
-                Plans (json)
-              </NavLink>
-            </NavLinks>
-          </Box>
-        }
-      ></Navbar>
-    </>
+    <Navbar
+      logo="theme"
+      containerWidth={false}
+      leftSlot={
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            flexWrap: "nowrap",
+            overflow: "hidden",
+          }}
+        >
+          <NavLinks>
+            <NavLink to="/spectroscopy" linkComponent={Link}>
+              Spectroscopy
+            </NavLink>
+            <NavLink to="/plans" linkComponent={Link}>
+              Plans
+            </NavLink>
+          </NavLinks>
+        </Box>
+      }
+    />
   );
 }
 
