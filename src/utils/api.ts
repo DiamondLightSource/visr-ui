@@ -1,3 +1,38 @@
+import Keycloak from "keycloak-js";
+
+const initOptions = {
+  url: "https://authn.diamond.ac.uk",
+  realm: "master",
+  clientId: "visr-app",
+};
+
+const keycloak = new Keycloak(initOptions);
+
+keycloak.onTokenExpired = () => {
+  keycloak
+    .updateToken(10)
+    .then(refreshed => {
+      if (refreshed) {
+        console.log("Token refreshed");
+      } else {
+        console.log("Token still valid");
+      }
+    })
+    .catch(err => {
+      console.error("Token refresh failed", err);
+    });
+};
+
+const kcInit = keycloak
+  .init({ onLoad: "login-required" })
+  .then(authenticated => {
+    if (authenticated) {
+      console.log("Authenticated");
+    } else {
+      console.error("Not authenticated");
+    }
+  });
+
 export interface Plan {
   name: string;
   description: string | undefined;
@@ -19,18 +54,27 @@ export interface TaskRequest {
 }
 
 export async function getPlans(): Promise<PlansResponse> {
-  const url = "/api/plans";
+  if (!keycloak.authenticated) {
+    await kcInit;
+  }
 
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  headers.append("X-Requested-By", "XMLHttpRequest");
+  if (!keycloak.token) {
+    throw new Error("No Keycloak token available");
+  }
+  const url = "/api/plans";
+  console.log("getting plans");
 
   const response = await fetch(url, {
     method: "GET",
-    headers: headers,
+    headers: {
+      Authorization: `Bearer ${keycloak.token}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
   });
 
-  return await response.json();
+  const result = await response.json();
+  return result;
 }
 
 export async function createAndStartTask(
@@ -52,6 +96,13 @@ export async function createTask(request: TaskRequest): Promise<TaskResponse> {
     headers: headers,
     body: JSON.stringify(request),
   });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Error ${response.status}: ${response.statusText}\n${errorText}`,
+    );
+  }
 
   return await response.json();
 }
