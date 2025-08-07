@@ -1,38 +1,65 @@
-import type React from "react";
-import type { Plan, PlansResponse } from "../utils/api";
-import PlanParameters from "./PlanParameters";
-import Select from "@mui/material/Select";
-import { useState } from "react";
-import { MenuItem } from "@mui/material";
+import { useState, type ReactNode } from "react";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 
-type PlanSelectorProps = {
-  planResponse: PlansResponse;
+type PlanSelectorProps<T> = {
+  plans: T[];
+  getName: (plan: T) => string;
+  renderPlan: (plan: T) => ReactNode;
+  title?: string;
 };
 
-const PlanSelector: React.FC<PlanSelectorProps> = (
-  props: PlanSelectorProps,
-) => {
-  const [currentPlan, setCurrentPlan] = useState<Plan | undefined>(undefined);
+const PlanSelector = <T,>({
+  plans,
+  getName,
+  renderPlan,
+  title = "Plans",
+}: PlanSelectorProps<T>) => {
+  const [currentPlan, setCurrentPlan] = useState<T | undefined>(undefined);
 
   return (
-    <div>
-      <h3>Available Plans</h3>
-      <Select
-        defaultValue={""}
-        onChange={event => {
-          const i = parseInt(event.target.value);
-          setCurrentPlan(props.planResponse.plans[i]);
-        }}
-      >
-        {props.planResponse.plans.map((plan, i) => (
-          <MenuItem value={i}>{plan.name}</MenuItem>
-        ))}
-      </Select>
-
-      {currentPlan !== undefined && (
-        <PlanParameters plan={currentPlan}></PlanParameters>
-      )}
-    </div>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      gap={2}
+    >
+      <Typography variant="h4" component="h2" textAlign="center">
+        {title}
+      </Typography>
+      <FormControl sx={{ m: 1, width: 200 }} fullWidth>
+        <InputLabel id="plan-select-id">Plan</InputLabel>
+        <Select
+          labelId="plan-select-id"
+          value={currentPlan ? plans.indexOf(currentPlan).toString() : ""}
+          label="Plan"
+          onChange={event => {
+            const value = event.target.value;
+            if (value === "") {
+              setCurrentPlan(undefined);
+            } else {
+              const i = parseInt(value);
+              setCurrentPlan(plans[i]);
+            }
+          }}
+        >
+          <MenuItem value="">&nbsp;</MenuItem>
+          {plans.map((plan, i) => (
+            <MenuItem key={getName(plan)} value={i}>
+              {getName(plan)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      {currentPlan && renderPlan(currentPlan)}
+    </Box>
   );
 };
 

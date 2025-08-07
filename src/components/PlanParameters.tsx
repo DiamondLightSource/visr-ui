@@ -1,14 +1,13 @@
+import { useState } from "react";
+import { Box, TextField, Typography } from "@mui/material";
 import { JsonForms } from "@jsonforms/react";
-import Button from "@mui/material/Button";
-import type React from "react";
 import {
   materialRenderers,
   materialCells,
 } from "@jsonforms/material-renderers";
-import { useState } from "react";
 import sanitizeSchema from "../utils/schema";
-import { createAndStartTask, type Plan, type TaskRequest } from "../utils/api";
-import { TextField } from "@mui/material";
+import type { Plan } from "../utils/api";
+import RunPlanButton from "./RunPlanButton";
 
 type PlanParametersProps = {
   plan: Plan;
@@ -24,8 +23,14 @@ const PlanParameters: React.FC<PlanParametersProps> = (
   const [instrumentSession, setInstrumentSession] = useState("");
 
   return (
-    <div>
-      <h2>{props.plan.name}</h2>
+    <Box>
+      <Typography
+        variant="h5"
+        component="h1"
+        sx={{ mb: 2, fontWeight: "bold" }}
+      >
+        {props.plan.name}
+      </Typography>
       <JsonForms
         schema={schema}
         data={planParameters}
@@ -38,19 +43,14 @@ const PlanParameters: React.FC<PlanParametersProps> = (
         label="Instrument Session"
         onChange={e => setInstrumentSession(e.target.value)}
       ></TextField>
-      <Button
-        onClick={async () => {
-          const taskRequest: TaskRequest = {
-            name: props.plan.name,
-            params: planParameters,
-            instrument_session: instrumentSession,
-          };
-          await createAndStartTask(taskRequest);
-        }}
-      >
-        Run Plan
-      </Button>
-    </div>
+      <Box sx={{ mt: 2 }}>
+        <RunPlanButton
+          name={props.plan.name}
+          params={planParameters}
+          instrumentSession={instrumentSession}
+        />
+      </Box>
+    </Box>
   );
 };
 
