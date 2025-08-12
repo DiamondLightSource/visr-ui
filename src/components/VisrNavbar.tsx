@@ -30,6 +30,9 @@ function VisrNavbar() {
             <NavLink to="/plans" linkComponent={Link}>
               Plans
             </NavLink>
+            <NavLink to="/workflows" linkComponent={Link}>
+              Workflows
+            </NavLink>
           </NavLinks>
         </Box>
       }
