@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, TextField } from "@mui/material";
 import NumberTextField from "./NumberTextField";
 import RunPlanButton from "./RunPlanButton";
+import RawSpectroscopyData from "./RawSpectroscopyData";
 
 export type SpectroscopyFormData = {
   numbers_of_points: number;
@@ -29,6 +30,7 @@ function SpectroscopyForm() {
         flexDirection: "column",
       }}
     >
+      <RawSpectroscopyData />
       <Box
         sx={{
           display: "grid",
