@@ -6,6 +6,14 @@ import JsonFormsPlans from "./routes/Plans.tsx";
 import Dashboard from "./routes/Dashboard.tsx";
 import Spectroscopy from "./routes/Spectroscopy.tsx";
 
+declare global {
+  interface Window {
+    global?: typeof globalThis;
+  }
+}
+
+window.global ||= window;
+
 async function enableMocking() {
   if (import.meta.env.DEV) {
     const { worker } = await import("./mocks/browser");
