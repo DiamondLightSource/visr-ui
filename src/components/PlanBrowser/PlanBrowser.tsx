@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import type { Plan } from "../utils/api";
+import type { Plan } from "../../utils/api";
 import {
   Box,
   Container,

@@ -3,7 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi, describe, it, expect } from "vitest";
 import SearchablePlanList from "./SearchablePlanList";
-import type { Plan } from "../utils/api";
+import type { Plan } from "../../utils/api";
 
 const plans: Plan[] = [
   { name: "Align Beam", description: "", schema: {} },

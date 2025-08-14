@@ -5,10 +5,10 @@ import {
   materialRenderers,
   materialCells,
 } from "@jsonforms/material-renderers";
-import sanitizeSchema from "../utils/schema";
-import type { Plan } from "../utils/api";
-import RunPlanButton from "./RunPlanButton";
-import { useInstrumentSession } from "../context/instrumentSession/useInstrumentSession";
+import sanitizeSchema from "../../utils/schema";
+import type { Plan } from "../../utils/api";
+import RunPlanButton from "../RunPlanButton";
+import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 
 import { ErrorBoundary } from "react-error-boundary";
 

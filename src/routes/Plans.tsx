@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
 import { getPlans, type PlansResponse } from "../utils/api";
 import VisrNavbar from "../components/VisrNavbar";
-import PlanBrowser from "../components/PlanBrowser";
-import PlanParameters from "../components/PlanParameters";
+import PlanBrowser from "../components/PlanBrowser/PlanBrowser";
+import PlanParameters from "../components/PlanBrowser/PlanParameters";
 
 function JsonFormsPlans() {
   const [planData, setPlanData] = useState<PlansResponse>({ plans: [] });
