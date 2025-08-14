@@ -51,14 +51,14 @@ export default function SearchablePlanList({
             <ListItemButton
               key={plan.name}
               selected={selected}
-              onClick={() => updateSelection(plan)}
               aria-selected={selected}
+              onClick={() => updateSelection(plan)}
             >
               {plan.name}
             </ListItemButton>
           );
         })}
-        {matchingPlans.length === 0 && (
+        {matchingPlans.length === 0 && plans.length > 0 && (
           <Box sx={{ p: 2 }}>
             <Typography variant="body2" color="text.secondary">
               No plans match “{query}”.
