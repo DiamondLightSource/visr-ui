@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi, describe, it, expect } from "vitest";
 import SearchablePlanList from "./SearchablePlanList";
@@ -130,5 +130,34 @@ describe("SearchablePlanList", () => {
     expect(
       screen.getByRole("textbox", { name: /search plans/i }),
     ).toBeInTheDocument();
+  });
+
+  it("shows all items after clearing a search", async () => {
+    renderList();
+    const user = userEvent.setup();
+
+    const planList = screen.getByRole("list");
+    const { getAllByRole, queryAllByRole } = within(planList);
+
+    // three initial plans
+    expect(getAllByRole("button")).toHaveLength(3);
+
+    // search
+    const search = screen.getByRole("textbox", { name: /search plans/i });
+    await user.type(search, "zzz");
+
+    // no matches
+    expect(screen.getByText(/no plans match/i)).toBeInTheDocument();
+    // no plans shown
+    expect(queryAllByRole("button")).toHaveLength(0);
+
+    // clear search
+    await user.clear(search);
+
+    // no matches label disappears
+    expect(screen.queryByText(/no plans match/i)).not.toBeInTheDocument();
+
+    // three plans again
+    expect(getAllByRole("button")).toHaveLength(3);
   });
 });
