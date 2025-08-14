@@ -8,6 +8,18 @@ import {
 import sanitizeSchema from "../utils/schema";
 import type { Plan } from "../utils/api";
 import RunPlanButton from "./RunPlanButton";
+import { ErrorBoundary } from "react-error-boundary";
+
+/**
+ * If the UI generation fails, we show a simple apology
+ */
+function UIFallback() {
+  return (
+    <Typography component="h1" variant="h5">
+      UI unavailable
+    </Typography>
+  );
+}
 
 type PlanParametersProps = {
   plan: Plan;
@@ -23,7 +35,7 @@ const PlanParameters: React.FC<PlanParametersProps> = (
   const [instrumentSession, setInstrumentSession] = useState("");
 
   return (
-    <Box>
+    <ErrorBoundary FallbackComponent={UIFallback} resetKeys={[props.plan.name]}>
       <Typography
         variant="h5"
         component="h1"
@@ -31,6 +43,11 @@ const PlanParameters: React.FC<PlanParametersProps> = (
       >
         {props.plan.name}
       </Typography>
+      {props.plan.description && (
+        <Typography pt={2} pb={4}>
+          {props.plan.description}
+        </Typography>
+      )}
       <JsonForms
         schema={schema}
         data={planParameters}
@@ -50,7 +67,7 @@ const PlanParameters: React.FC<PlanParametersProps> = (
           instrumentSession={instrumentSession}
         />
       </Box>
-    </Box>
+    </ErrorBoundary>
   );
 };
 
