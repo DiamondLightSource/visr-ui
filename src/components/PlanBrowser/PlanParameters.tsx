@@ -5,9 +5,9 @@ import {
   materialRenderers,
   materialCells,
 } from "@jsonforms/material-renderers";
-import sanitizeSchema from "../utils/schema";
-import type { Plan } from "../utils/api";
-import RunPlanButton from "./RunPlanButton";
+import sanitizeSchema from "../../utils/schema";
+import type { Plan } from "../../utils/api";
+import RunPlanButton from "../RunPlanButton";
 import { ErrorBoundary } from "react-error-boundary";
 
 /**

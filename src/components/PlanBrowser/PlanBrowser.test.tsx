@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
-import type { Plan } from "../utils/api";
+import type { Plan } from "../../utils/api";
 import { render, screen } from "@testing-library/react";
 import PlanBrowser from "./PlanBrowser";
 import userEvent from "@testing-library/user-event";
