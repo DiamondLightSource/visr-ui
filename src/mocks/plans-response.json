@@ -1,6 +1,13 @@
 {
   "plans": [
     {
+      "name": "hi_plan",
+      "description": "Says hi to you",
+      "schema": {
+        "properties": { "name": { "title": "Name", "type": "string" } }
+      }
+    },
+    {
       "name": "count",
       "description": "Reads from a number of devices.\n    Wraps bluesky.plans.count(det, num, delay, md=metadata) exposing only serializable\n    parameters and metadata.",
       "schema": {

@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     // Use jsdom so RTL can render components
     environment: "jsdom",
-    // So you don't need to import describe/it/expect in every test
+    // So no need to import describe/it/expect in every test
     globals: true,
     // Load our jest-dom matchers and any polyfills
     setupFiles: ["./vitest.setup.ts"],
@@ -12,5 +12,7 @@ export default defineConfig({
     include: ["**/*.test.{ts,tsx}"],
     // Recommended for React/JSX source maps
     css: false,
+    // Nice reporter output
+    reporters: ["verbose"],
   },
 });
