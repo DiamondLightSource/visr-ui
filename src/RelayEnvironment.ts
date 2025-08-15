@@ -6,6 +6,7 @@ import {
   type FetchFunction,
 } from "relay-runtime";
 import keycloak from "./keycloak";
+import type { PlansResponse } from "./utils/api";
 
 const HTTP_ENDPOINT = "https://workflows.diamond.ac.uk/graphql";
 
@@ -65,6 +66,30 @@ const fetchFn: FetchFunction = async (request, variables) => {
     return {};
   }
 };
+
+export async function getPlans(): Promise<PlansResponse> {
+  if (!keycloak.authenticated) {
+    await kcinit;
+  }
+
+  if (!keycloak.token) {
+    throw new Error("No Keycloak token available");
+  }
+  const url = "https://b01-1-blueapi.diamond.ac.uk/plans";
+  console.log("getting plans");
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${keycloak.token}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
+  const result = await response.json();
+  return result;
+}
 
 function createRelayEnvironment() {
   return new Environment({

@@ -18,21 +18,6 @@ export interface TaskRequest {
   instrument_session: string;
 }
 
-export async function getPlans(): Promise<PlansResponse> {
-  const url = "/api/plans";
-
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  headers.append("X-Requested-By", "XMLHttpRequest");
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers: headers,
-  });
-
-  return await response.json();
-}
-
 export async function createAndStartTask(
   request: TaskRequest,
 ): Promise<TaskResponse> {
@@ -41,7 +26,7 @@ export async function createAndStartTask(
 }
 
 export async function createTask(request: TaskRequest): Promise<TaskResponse> {
-  const url = "/api/tasks";
+  const url = "https://b01-1-blueapi.diamond.ac.uk/tasks";
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -53,11 +38,17 @@ export async function createTask(request: TaskRequest): Promise<TaskResponse> {
     body: JSON.stringify(request),
   });
 
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Error ${response.status}: ${response.statusText}\n${errorText}`,
+    );
+  }
   return await response.json();
 }
 
 export async function startTask(task_id: string): Promise<TaskResponse> {
-  const url = "/api/worker/task";
+  const url = "https://b01-1-blueapi.diamond.ac.uk/worker/task";
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");

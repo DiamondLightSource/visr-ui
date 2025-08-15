@@ -35,14 +35,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-enableMocking().then(() => {
-  createRoot(document.getElementById("root")!).render(
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <StrictMode>
-        <ThemeProvider theme={DiamondTheme} defaultMode="light">
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </StrictMode>
-    </RelayEnvironmentProvider>,
-  );
-});
+// enableMocking().then(() => {
+createRoot(document.getElementById("root")!).render(
+  <RelayEnvironmentProvider environment={RelayEnvironment}>
+    <StrictMode>
+      <ThemeProvider theme={DiamondTheme} defaultMode="light">
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </StrictMode>
+  </RelayEnvironmentProvider>,
+);
+// });

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
-import { getPlans, type PlansResponse } from "../utils/api";
+import { type PlansResponse } from "../utils/api";
 import JsonPlanSelector from "../components/JsonPlanSelector";
 import VisrNavbar from "../components/VisrNavbar";
+import { getPlans } from "../RelayEnvironment";
 
 function JsonFormsPlans() {
   const [planData, setPlanData] = useState<PlansResponse>({ plans: [] });
