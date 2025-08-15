@@ -3,7 +3,7 @@ import Keycloak from "keycloak-js";
 const initOptions = {
   url: "https://authn.diamond.ac.uk",
   realm: "master",
-  clientId: "workflows-ui-dev",
+  clientId: "visr-app",
 };
 
 const keycloak = new Keycloak(initOptions);
