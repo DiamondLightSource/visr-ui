@@ -46,6 +46,7 @@ const fetchFn: FetchFunction = async (request, variables) => {
   }
 
   if (keycloak.token) {
+    console.log("keycloak token", keycloak.token);
     const resp = await fetch(HTTP_ENDPOINT, {
       method: "POST",
       headers: {
