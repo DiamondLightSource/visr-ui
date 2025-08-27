@@ -38,7 +38,11 @@ export default function PlanBrowser({ plans, renderPlan }: PlanBrowserProps) {
               display: "flex",
             }}
           >
-            {!selectedPlan ? (
+            {selectedPlan ? (
+              <Box sx={{ flex: 1, minHeight: 0, overflow: "auto" }}>
+                {renderPlan(selectedPlan)}
+              </Box>
+            ) : (
               <Box sx={{ m: "auto", textAlign: "center" }}>
                 <Typography variant="h6" gutterBottom>
                   Select a plan
@@ -46,10 +50,6 @@ export default function PlanBrowser({ plans, renderPlan }: PlanBrowserProps) {
                 <Typography variant="body2" color="text.secondary">
                   Choose from the list on the left to see details.
                 </Typography>
-              </Box>
-            ) : (
-              <Box sx={{ flex: 1, minHeight: 0, overflow: "auto" }}>
-                {renderPlan(selectedPlan)}
               </Box>
             )}
           </Paper>
