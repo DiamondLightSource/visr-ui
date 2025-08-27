@@ -3,7 +3,7 @@ import { Box, TextField } from "@mui/material";
 import NumberTextField from "./NumberTextField";
 import RunPlanButton from "./RunPlanButton";
 import RawSpectroscopyData from "./RawSpectroscopyData";
-import { useInstrumentSession } from "../context/InstrumentSessionContext";
+import { useInstrumentSession } from "../context/instrumentSession/useInstrumentSession";
 
 export type SpectroscopyFormData = {
   numbers_of_points: number;
@@ -22,7 +22,7 @@ function SpectroscopyForm() {
     exposure_time: 0.1,
   });
 
-  const {instrumentSession, setInstrumentSession} = useInstrumentSession();
+  const { instrumentSession, setInstrumentSession } = useInstrumentSession();
 
   return (
     <Box

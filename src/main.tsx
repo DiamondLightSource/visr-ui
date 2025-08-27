@@ -5,7 +5,7 @@ import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
 import JsonFormsPlans from "./routes/Plans.tsx";
 import Dashboard from "./routes/Dashboard.tsx";
 import Spectroscopy from "./routes/Spectroscopy.tsx";
-import { InstrumentSessionProvider } from "./context/InstrumentSessionContext.tsx";
+import { InstrumentSessionProvider } from "./context/instrumentSession/InstrumentSessionProvider.tsx";
 
 declare global {
   interface Window {
@@ -21,8 +21,6 @@ async function enableMocking() {
     return worker.start();
   }
 }
-
-
 
 const router = createBrowserRouter([
   {

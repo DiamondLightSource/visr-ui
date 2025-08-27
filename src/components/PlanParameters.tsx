@@ -8,7 +8,7 @@ import {
 import sanitizeSchema from "../utils/schema";
 import type { Plan } from "../utils/api";
 import RunPlanButton from "./RunPlanButton";
-import { useInstrumentSession } from "../context/InstrumentSessionContext";
+import { useInstrumentSession } from "../context/instrumentSession/useInstrumentSession";
 
 type PlanParametersProps = {
   plan: Plan;
@@ -21,7 +21,7 @@ const PlanParameters: React.FC<PlanParametersProps> = (
 
   // const renderers = materialRenderers;
   const [planParameters, setPlanParameters] = useState({});
-  const {instrumentSession, setInstrumentSession} = useInstrumentSession();
+  const { instrumentSession, setInstrumentSession } = useInstrumentSession();
 
   return (
     <Box>
