@@ -8,6 +8,7 @@ import {
 import sanitizeSchema from "../utils/schema";
 import type { Plan } from "../utils/api";
 import RunPlanButton from "./RunPlanButton";
+import { useInstrumentSession } from "../context/InstrumentSessionContext";
 
 type PlanParametersProps = {
   plan: Plan;
@@ -20,7 +21,7 @@ const PlanParameters: React.FC<PlanParametersProps> = (
 
   // const renderers = materialRenderers;
   const [planParameters, setPlanParameters] = useState({});
-  const [instrumentSession, setInstrumentSession] = useState("");
+  const {instrumentSession, setInstrumentSession} = useInstrumentSession();
 
   return (
     <Box>
@@ -41,6 +42,7 @@ const PlanParameters: React.FC<PlanParametersProps> = (
       <TextField
         id="instrumentSession"
         label="Instrument Session"
+        defaultValue={instrumentSession}
         onChange={e => setInstrumentSession(e.target.value)}
       ></TextField>
       <Box sx={{ mt: 2 }}>

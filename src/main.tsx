@@ -5,6 +5,7 @@ import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
 import JsonFormsPlans from "./routes/Plans.tsx";
 import Dashboard from "./routes/Dashboard.tsx";
 import Spectroscopy from "./routes/Spectroscopy.tsx";
+import { InstrumentSessionProvider } from "./context/InstrumentSessionContext.tsx";
 
 declare global {
   interface Window {
@@ -20,6 +21,8 @@ async function enableMocking() {
     return worker.start();
   }
 }
+
+
 
 const router = createBrowserRouter([
   {
@@ -40,7 +43,9 @@ enableMocking().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <ThemeProvider theme={DiamondTheme} defaultMode="light">
-        <RouterProvider router={router} />
+        <InstrumentSessionProvider defaultSessionId="cm40661-1">
+          <RouterProvider router={router} />
+        </InstrumentSessionProvider>
       </ThemeProvider>
     </StrictMode>,
   );
