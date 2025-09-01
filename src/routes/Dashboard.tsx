@@ -3,12 +3,10 @@ import ArticleIcon from "@mui/icons-material/Article";
 import FeedIcon from "@mui/icons-material/Feed";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import { Link } from "react-router-dom";
-import VisrNavbar from "../components/VisrNavbar";
 
 function Dashboard() {
   return (
     <>
-      <VisrNavbar />
       <Container maxWidth="sm" sx={{ mt: 5, mb: 4 }}>
         <Stack direction={"column"} alignItems={"center"} spacing={3}>
           <Typography variant="h4" component="h1" textAlign={"center"}>
