@@ -3,6 +3,7 @@ import type { Plan } from "../../utils/api";
 import { render, screen } from "@testing-library/react";
 
 import PlanParameters from "./PlanParameters";
+import { InstrumentSessionProvider } from "../../context/instrumentSession/InstrumentSessionProvider";
 
 const mockJsonFormsImpl = vi.fn(() => {
   return <div data-testid="jsonforms-sentinel" />;
@@ -24,7 +25,11 @@ const plan: Plan = {
 
 describe("PlanParameters", () => {
   it("renders a plan's name, description, parameters, session, and run button", () => {
-    render(<PlanParameters plan={plan} />);
+    render(
+      <InstrumentSessionProvider>
+        <PlanParameters plan={plan} />
+      </InstrumentSessionProvider>,
+    );
 
     expect(screen.getByText(plan.name)).toBeInTheDocument();
     expect(screen.getByText(plan.description!)).toBeInTheDocument();
@@ -39,7 +44,11 @@ describe("PlanParameters", () => {
       throw new Error("I can't do it!");
     });
 
-    render(<PlanParameters plan={plan} />);
+    render(
+      <InstrumentSessionProvider>
+        <PlanParameters plan={plan} />
+      </InstrumentSessionProvider>,
+    );
 
     expect(screen.getByText("UI unavailable")).toBeInTheDocument();
   });
