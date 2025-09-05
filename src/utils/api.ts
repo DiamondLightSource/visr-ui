@@ -18,6 +18,21 @@ export interface TaskRequest {
   instrument_session: string;
 }
 
+export async function getPlans(): Promise<PlansResponse> {
+  const url = "/api/plans";
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("X-Requested-By", "XMLHttpRequest");
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: headers,
+  });
+
+  return await response.json();
+}
+
 export async function createAndStartTask(
   request: TaskRequest,
 ): Promise<TaskResponse> {
