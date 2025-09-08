@@ -41,7 +41,7 @@ export async function createAndStartTask(
 }
 
 export async function createTask(request: TaskRequest): Promise<TaskResponse> {
-  const url = "https://b01-1-blueapi.diamond.ac.uk/tasks";
+  const url = "/api/tasks";
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -63,7 +63,7 @@ export async function createTask(request: TaskRequest): Promise<TaskResponse> {
 }
 
 export async function startTask(task_id: string): Promise<TaskResponse> {
-  const url = "https://b01-1-blueapi.diamond.ac.uk/worker/task";
+  const url = "/api/worker/task";
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
