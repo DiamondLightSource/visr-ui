@@ -1,6 +1,7 @@
 import { Container, Typography, Button, Stack } from "@mui/material";
 import ArticleIcon from "@mui/icons-material/Article";
 import FeedIcon from "@mui/icons-material/Feed";
+import AddchartIcon from "@mui/icons-material/Addchart";
 import { Link } from "react-router-dom";
 import VisrNavbar from "../components/VisrNavbar";
 
@@ -11,7 +12,7 @@ function Dashboard() {
       <Container maxWidth="sm" sx={{ mt: 5, mb: 4 }}>
         <Stack direction={"column"} alignItems={"center"} spacing={3}>
           <Typography variant="h4" component="h1" textAlign={"center"}>
-            Welcome to Visr
+            Welcome to ViSR
           </Typography>
           <Stack direction={"row"} spacing={5}>
             <Button
@@ -21,7 +22,7 @@ function Dashboard() {
               startIcon={<ArticleIcon />}
               sx={{ width: 150, height: 50 }}
             >
-              Spectroscopy
+              <Typography sx={{ mt: "4px" }}>Spectroscopy</Typography>
             </Button>
             <Button
               component={Link}
@@ -30,7 +31,16 @@ function Dashboard() {
               startIcon={<FeedIcon />}
               sx={{ width: 150, height: 50 }}
             >
-              Plans
+              <Typography sx={{ mt: "4px" }}>Plans</Typography>
+            </Button>
+            <Button
+              component={Link}
+              to="/workflows"
+              variant="contained"
+              startIcon={<AddchartIcon />}
+              sx={{ width: 150, height: 50, gap: "0.5rem" }}
+            >
+              <Typography sx={{ mt: "4px" }}>Workflows</Typography>
             </Button>
           </Stack>
         </Stack>

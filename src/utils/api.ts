@@ -53,6 +53,12 @@ export async function createTask(request: TaskRequest): Promise<TaskResponse> {
     body: JSON.stringify(request),
   });
 
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Error ${response.status}: ${response.statusText}\n${errorText}`,
+    );
+  }
   return await response.json();
 }
 
