@@ -1,11 +1,13 @@
+import { DiamondTheme, ThemeProvider } from "@diamondlightsource/sci-react-ui";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import Dashboard from "./routes/Dashboard.tsx";
+import { InstrumentSessionProvider } from "./context/instrumentSession/InstrumentSessionProvider.tsx";
+import JsonFormsPlans from "./routes/Plans.tsx";
+import { Layout } from "./routes/Layout.tsx";
+import Spectroscopy from "./routes/Spectroscopy.tsx";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
-import JsonFormsPlans from "./routes/Plans.tsx";
-import Dashboard from "./routes/Dashboard.tsx";
-import Spectroscopy from "./routes/Spectroscopy.tsx";
-import { InstrumentSessionProvider } from "./context/instrumentSession/InstrumentSessionProvider.tsx";
 
 declare global {
   interface Window {
@@ -28,19 +30,25 @@ async function enableMocking() {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />,
-  },
-  {
-    path: "/plans",
-    element: <JsonFormsPlans />,
-  },
-  {
-    path: "/spectroscopy",
-    element: <Spectroscopy />,
-  },
-  {
-    path: "/workflows",
-    element: <Workflows />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "spectroscopy",
+        element: <Spectroscopy />,
+      },
+      {
+        path: "plans",
+        element: <JsonFormsPlans />,
+      },
+      {
+        path: "/workflows",
+        element: <Workflows />,
+      },
+    ],
   },
 ]);
 
