@@ -64,28 +64,6 @@ type PageInfo @shareable {
 }
 
 """
-The root query of the service
-"""
-type Query {
-  """
-  Get a single [`Workflow`] by proposal, visit, and name
-  """
-  workflow(visit: VisitInput!, name: String!): Workflow!
-  workflows(
-    visit: VisitInput!
-    cursor: String
-    limit: Int
-    filter: WorkflowFilter
-  ): WorkflowConnection!
-  workflowTemplate(name: String!): WorkflowTemplate!
-  workflowTemplates(
-    cursor: String
-    limit: Int
-    filter: WorkflowTemplatesFilter
-  ): WorkflowTemplateConnection!
-}
-
-"""
 The root mutation of the service
 """
 type Subscription {
@@ -428,4 +406,143 @@ input WorkflowTemplatesFilter {
   The science group owning the template eg imaging
   """
   scienceGroup: String
+}
+
+type Account {
+  accountId: Int!
+  username: String!
+  emailAddress: String
+  title: String
+  givenName: String
+  familyName: String
+  type: AccountType!
+  state: AccountState!
+  proposalRoles: [ProposalAccount!]!
+  instrumentSessionRoles: [InstrumentSessionRole!]!
+}
+
+enum AccountState {
+  enabled
+  disabled
+}
+
+enum AccountType {
+  user
+  staff
+  functional
+}
+
+"""
+Date with time (isoformat)
+"""
+scalar DateTime
+
+type Instrument {
+  name: String!
+  scienceGroup: String
+  description: String
+  proposals: [Proposal!]!
+  instrumentSessions: [InstrumentSession!]!
+}
+
+type InstrumentSession {
+  instrumentSessionId: Int!
+  instrumentSessionNumber: Int!
+  startTime: DateTime
+  endTime: DateTime
+  type: String
+  state: String
+  riskRating: String
+  proposal: Proposal
+  instrument: Instrument!
+  roles: [InstrumentSessionRole!]!
+}
+
+type InstrumentSessionRole {
+  instrumentSession: InstrumentSession!
+  account: Account!
+  role: String!
+  onSite: Boolean!
+}
+
+type Proposal {
+  proposalNumber: Int!
+  proposalCategory: String
+  title: String
+  summary: String
+  state: ProposalState!
+  instrumentSessions: [InstrumentSession!]!
+  instruments: [Instrument!]!
+  roles: [ProposalAccount!]!
+}
+
+type ProposalAccount {
+  proposal: Proposal!
+  account: Account!
+  role: String!
+}
+
+enum ProposalState {
+  Open
+  Closed
+  Cancelled
+}
+
+type Query {
+  """
+  Get a proposal by its number
+  """
+  proposal(proposalNumber: Int!): Proposal
+
+  """
+  Get a list of proposals
+  """
+  proposals(proposalCategory: String = null): [Proposal!]!
+
+  """
+  Get a instrument session
+  """
+  instrumentSession(
+    proposalNumber: Int!
+    instrumentSessionNumber: Int!
+  ): InstrumentSession
+
+  """
+  Get a instrument session
+  """
+  instrumentSessions(
+    proposalNumber: Int = null
+    proposalCategory: String = null
+  ): [InstrumentSession!]
+
+  """
+  Get an instrument
+  """
+  instrument(instrumentName: String!): Instrument
+
+  """
+  Get a list of instruments
+  """
+  instruments(scienceGroup: String = null): [Instrument!]!
+
+  """
+  Get an account
+  """
+  account(username: String!): Account
+  """
+  Get a single [`Workflow`] by proposal, visit, and name
+  """
+  workflow(visit: VisitInput!, name: String!): Workflow!
+  workflows(
+    visit: VisitInput!
+    cursor: String
+    limit: Int
+    filter: WorkflowFilter
+  ): WorkflowConnection!
+  workflowTemplate(name: String!): WorkflowTemplate!
+  workflowTemplates(
+    cursor: String
+    limit: Int
+    filter: WorkflowTemplatesFilter
+  ): WorkflowTemplateConnection!
 }
