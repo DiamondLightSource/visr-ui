@@ -6,7 +6,7 @@ import RawSpectroscopyData from "./RawSpectroscopyData";
 import { useInstrumentSession } from "../context/instrumentSession/useInstrumentSession";
 
 export type SpectroscopyFormData = {
-  numbers_of_points: number;
+  total_number_of_scan_points: number;
   grid_size: number;
   grid_origin_x: number;
   grid_origin_y: number;
@@ -15,7 +15,7 @@ export type SpectroscopyFormData = {
 
 function SpectroscopyForm() {
   const [formData, setFormData] = useState<SpectroscopyFormData>({
-    numbers_of_points: 5,
+    total_number_of_scan_points: 25,
     grid_size: 5.0,
     grid_origin_x: 0.0,
     grid_origin_y: 0.0,
@@ -69,7 +69,7 @@ function SpectroscopyForm() {
         <NumberTextField
           formData={formData}
           setFormData={setFormData}
-          field="numbers_of_points"
+          field="total_number_of_scan_points"
           step={1}
           label="Number of Points"
         />
@@ -90,7 +90,7 @@ function SpectroscopyForm() {
       </Box>
       <Box sx={{ mt: 4 }} display={"flex"} justifyContent={"center"}>
         <RunPlanButton
-          name="simple_spectroscopy"
+          name="demo_spectroscopy"
           params={formData}
           instrumentSession={instrumentSession}
         />
