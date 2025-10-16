@@ -9,33 +9,38 @@ function toNDT(matrix: number[][], colour: RGBColor): NDT {
   const height = matrix.length;
   const width = matrix[0].length;
 
-  // Flatten grayscale matrix to 1D
+  // Flatten and filter out nulls for normalisation
   const flat = matrix.flat();
+  const valid = flat.filter((v): v is number => v !== null && !isNaN(v));
 
-  // Normalisation
-  const min = Math.min(...flat);
-  const max = Math.max(...flat);
+  // Avoid crashes when no valid values
+  const min = valid.length ? Math.min(...valid) : 0;
+  const max = valid.length ? Math.max(...valid) : 1;
   const scale = max > min ? 255 / (max - min) : 1;
 
-  // Expand to RGB triplets
   const rgb = new Uint8Array(width * height * 3);
 
   for (let i = 0; i < flat.length; i++) {
-    const v = Math.round((flat[i] - min) * scale); // scale to [0,255]
+    const v = flat[i];
+    let scaled = 0;
+    if (v !== null && !isNaN(v)) {
+      scaled = Math.round((v - min) * scale);
+    } // else stays 0 (black)
+
     switch (colour) {
       case "red":
-        rgb[i * 3] = v;
+        rgb[i * 3] = scaled;
         break;
       case "green":
-        rgb[i * 3 + 1] = v;
+        rgb[i * 3 + 1] = scaled;
         break;
       case "blue":
-        rgb[i * 3 + 2] = v;
+        rgb[i * 3 + 2] = scaled;
         break;
       case "gray":
-        rgb[i * 3] = v;
-        rgb[i * 3 + 1] = v;
-        rgb[i * 3 + 2] = v;
+        rgb[i * 3] = scaled;
+        rgb[i * 3 + 1] = scaled;
+        rgb[i * 3 + 2] = scaled;
         break;
     }
   }
@@ -47,7 +52,7 @@ const EMPTY_NDT = toNDT([[0]], "gray");
 
 /** Return type of `/api/data/map` */
 interface MapResponse {
-  values: number[][];
+  values: (number | null)[][];
 }
 
 function RawSpectroscopyData() {
