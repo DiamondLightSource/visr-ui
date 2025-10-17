@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 type RGBColor = "red" | "green" | "blue" | "gray";
 
 function toNDT(matrix: (number | null)[][], colour: RGBColor): NDT {
+  if (!matrix?.length || !matrix[0]?.length) {
+    return EMPTY_NDT; // skip invalid input
+  }
   const height = matrix.length;
   const width = matrix[0].length;
 
@@ -123,8 +126,10 @@ function RawSpectroscopyData() {
 
     if (running && currentScan) {
       pollInterval.current = setInterval(() => {
-        pollMaps(currentScan);
-      }, 200); // ms: poll at 5 Hz
+        pollMaps(currentScan).catch(err =>
+          console.warn("pollMaps error:", err),
+        );
+      }, 500); // ms: poll at 2 Hz
     } else if (pollInterval.current) {
       clearInterval(pollInterval.current);
       pollInterval.current = null;
