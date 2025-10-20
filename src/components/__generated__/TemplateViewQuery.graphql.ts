@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eb6c85d3e5731fbc36fe9b45f460ecbe>>
+ * @generated SignedSource<<22ad6119d7762165f836d7316ef9fffb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -120,13 +120,6 @@ return {
             "kind": "ScalarField",
             "name": "uiSchema",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "repository",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -134,12 +127,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9fb9e57ce71efced848172180274ed2a",
+    "cacheID": "b616858bd8444d12cb9d8b2630051fea",
     "id": null,
     "metadata": {},
     "name": "TemplateViewQuery",
     "operationKind": "query",
-    "text": "query TemplateViewQuery(\n  $templateName: String!\n) {\n  workflowTemplate(name: $templateName) {\n    ...workflowTemplateFragment\n  }\n}\n\nfragment workflowTemplateFragment on WorkflowTemplate {\n  name\n  maintainer\n  title\n  description\n  arguments\n  uiSchema\n  repository\n}\n"
+    "text": "query TemplateViewQuery(\n  $templateName: String!\n) {\n  workflowTemplate(name: $templateName) {\n    ...workflowTemplateFragment\n  }\n}\n\nfragment workflowTemplateFragment on WorkflowTemplate {\n  name\n  maintainer\n  title\n  description\n  arguments\n  uiSchema\n}\n"
   }
 };
 })();

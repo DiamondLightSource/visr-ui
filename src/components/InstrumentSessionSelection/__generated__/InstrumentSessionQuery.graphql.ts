@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<02f2f30b3d54f1c67b529f98b6da62d5>>
+ * @generated SignedSource<<bd1bc2c804b6142383c22bcdbb18504a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,17 +15,11 @@ export type InstrumentSessionQuery$variables = {
 export type InstrumentSessionQuery$data = {
   readonly instrument: {
     readonly instrumentSessions: ReadonlyArray<{
-      readonly endTime: any | null | undefined;
-      readonly instrumentSessionId: number;
       readonly instrumentSessionNumber: number;
       readonly proposal: {
         readonly proposalCategory: string | null | undefined;
         readonly proposalNumber: number;
-        readonly summary: string | null | undefined;
-        readonly title: string | null | undefined;
       } | null | undefined;
-      readonly startTime: any | null | undefined;
-      readonly state: string | null | undefined;
     }>;
   } | null | undefined;
 };
@@ -69,35 +63,7 @@ v1 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "instrumentSessionId",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "instrumentSessionNumber",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "startTime",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "endTime",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "state",
             "storageKey": null
           },
           {
@@ -120,20 +86,6 @@ v1 = [
                 "args": null,
                 "kind": "ScalarField",
                 "name": "proposalNumber",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "title",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "summary",
                 "storageKey": null
               }
             ],
@@ -164,16 +116,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "88448f9c707e7dbdc5681c0999ce62c8",
+    "cacheID": "625bde94466c698bcacfb6d41e195cbe",
     "id": null,
     "metadata": {},
     "name": "InstrumentSessionQuery",
     "operationKind": "query",
-    "text": "query InstrumentSessionQuery(\n  $instrumentName: String!\n) {\n  instrument(instrumentName: $instrumentName) {\n    instrumentSessions {\n      instrumentSessionId\n      instrumentSessionNumber\n      startTime\n      endTime\n      state\n      proposal {\n        proposalCategory\n        proposalNumber\n        title\n        summary\n      }\n    }\n  }\n}\n"
+    "text": "query InstrumentSessionQuery(\n  $instrumentName: String!\n) {\n  instrument(instrumentName: $instrumentName) {\n    instrumentSessions {\n      instrumentSessionNumber\n      proposal {\n        proposalCategory\n        proposalNumber\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "19ded6d0e48e9d8c47d4d4178842fb2d";
+(node as any).hash = "3cb865e4a1f45b6db5b70c2cb201f4e7";
 
 export default node;

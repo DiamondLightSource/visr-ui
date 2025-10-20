@@ -17,7 +17,6 @@ import { VisitInput } from "@diamondlightsource/sci-react-ui";
 interface TemplateSubmissionFormProps {
   title: string;
   maintainer: string;
-  repository?: string | null;
   description?: string;
   parametersSchema: JsonSchema;
   parametersUISchema?: UISchemaElement;
@@ -29,7 +28,6 @@ interface TemplateSubmissionFormProps {
 const TemplateSubmissionForm: React.FC<TemplateSubmissionFormProps> = ({
   title,
   maintainer,
-  repository,
   description,
   parametersSchema,
   parametersUISchema,
@@ -73,11 +71,6 @@ const TemplateSubmissionForm: React.FC<TemplateSubmissionFormProps> = ({
       <Typography variant="body1" align="center">
         Maintainer: {maintainer}
       </Typography>
-      {repository && (
-        <Typography variant="body1" align="center">
-          Repository: {repository}
-        </Typography>
-      )}
       <Divider />
       <JsonForms
         schema={parametersSchema}

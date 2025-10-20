@@ -3,120 +3,66 @@
     "instrument": {
       "instrumentSessions": [
         {
-          "instrumentSessionId": 63916,
           "instrumentSessionNumber": 1,
-          "startTime": "2024-07-19T09:00:00",
-          "endTime": "2024-08-09T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 39125,
-            "title": "CM39125 ViSR Commissioning Directory 2024",
-            "summary": null
+            "proposalNumber": 39125
           }
         },
         {
-          "instrumentSessionId": 63917,
           "instrumentSessionNumber": 2,
-          "startTime": "2024-08-09T09:00:00",
-          "endTime": "2024-10-11T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 39125,
-            "title": "CM39125 ViSR Commissioning Directory 2024",
-            "summary": null
+            "proposalNumber": 39125
           }
         },
         {
-          "instrumentSessionId": 63918,
           "instrumentSessionNumber": 3,
-          "startTime": "2024-10-11T09:00:00",
-          "endTime": "2024-12-31T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 39125,
-            "title": "CM39125 ViSR Commissioning Directory 2024",
-            "summary": null
+            "proposalNumber": 39125
           }
         },
         {
-          "instrumentSessionId": 65467,
           "instrumentSessionNumber": 1,
-          "startTime": "2025-01-01T09:00:00",
-          "endTime": "2025-02-28T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         },
         {
-          "instrumentSessionId": 65468,
           "instrumentSessionNumber": 2,
-          "startTime": "2025-02-28T09:00:00",
-          "endTime": "2025-05-16T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         },
         {
-          "instrumentSessionId": 65469,
           "instrumentSessionNumber": 3,
-          "startTime": "2025-05-16T09:00:00",
-          "endTime": "2025-08-15T09:00:00",
-          "state": "Completed",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         },
         {
-          "instrumentSessionId": 65470,
           "instrumentSessionNumber": 4,
-          "startTime": "2025-08-15T09:00:00",
-          "endTime": "2025-10-17T09:00:00",
-          "state": "In Progress",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         },
         {
-          "instrumentSessionId": 65471,
           "instrumentSessionNumber": 5,
-          "startTime": "2025-10-17T09:00:00",
-          "endTime": "2025-12-31T09:00:00",
-          "state": "Future",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         },
         {
-          "instrumentSessionId": 39088177,
           "instrumentSessionNumber": 6,
-          "startTime": "2025-08-26T13:00:00",
-          "endTime": "2025-12-25T00:00:00",
-          "state": "In Progress",
           "proposal": {
             "proposalCategory": "CM",
-            "proposalNumber": 40661,
-            "title": "ViSR Commissioning Directory 2025",
-            "summary": null
+            "proposalNumber": 40661
           }
         }
       ]

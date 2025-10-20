@@ -3,7 +3,8 @@ import ArticleIcon from "@mui/icons-material/Article";
 import FeedIcon from "@mui/icons-material/Feed";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import { Link } from "react-router-dom";
-import InstrumentSessionView from "../components/InstrumentSession";
+import InstrumentSessionView from "../components/InstrumentSessionSelection/InstrumentSessionView";
+import GetInstrumentSessions from "../components/InstrumentSessionSelection/InstrumentSession";
 
 function Dashboard() {
   return (
@@ -42,7 +43,7 @@ function Dashboard() {
               <Typography sx={{ mt: "4px" }}>Workflows</Typography>
             </Button>
           </Stack>
-          <InstrumentSessionView />
+          <InstrumentSessionView sessionsList={GetInstrumentSessions()} />
         </Stack>
       </Container>
     </>

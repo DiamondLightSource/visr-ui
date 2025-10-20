@@ -16,7 +16,6 @@ const SubmissionForm = (props: {
     <TemplateSubmissionForm
       title={data.title ? data.title : data.name}
       maintainer={data.maintainer}
-      repository={data.repository}
       description={data.description ? data.description : undefined}
       parametersSchema={data.arguments as JsonSchema}
       parametersUISchema={data.uiSchema as UISchemaElement}
