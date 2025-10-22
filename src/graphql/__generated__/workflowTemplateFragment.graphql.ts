@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ebfee6eb92e755ed73c9c0c62f53085>>
+ * @generated SignedSource<<7eb6c59915242a110bb98268ee6f12dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type workflowTemplateFragment$data = {
   readonly description: string | null | undefined;
   readonly maintainer: string;
   readonly name: string;
+  readonly repository: string | null | undefined;
   readonly title: string | null | undefined;
   readonly uiSchema: any | null | undefined;
   readonly " $fragmentType": "workflowTemplateFragment";
@@ -71,12 +72,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "uiSchema",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "repository",
+      "storageKey": null
     }
   ],
   "type": "WorkflowTemplate",
   "abstractKey": null
 };
 
-(node as any).hash = "cbfb08ecd1465e891725205c63c31d96";
+(node as any).hash = "959850317e316a423e70b0c89c011f27";
 
 export default node;
