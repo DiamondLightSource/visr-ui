@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4eeca44e5ac7e2a2b602d85adcf61ca8>>
+ * @generated SignedSource<<b8dd94a5c9d130674f71ad9c16e3cc8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,8 @@ export type VisitInput = {
   proposalNumber: number;
 };
 export type WorkflowFilter = {
-  creator?: string | null | undefined;
+  creator?: any | null | undefined;
+  template?: any | null | undefined;
   workflowStatusFilter?: WorkflowStatusFilter | null | undefined;
 };
 export type WorkflowStatusFilter = {
