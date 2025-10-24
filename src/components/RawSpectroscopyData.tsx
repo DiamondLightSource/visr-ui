@@ -88,8 +88,11 @@ function RawSpectroscopyData() {
     };
 
     evtSource.onerror = err => {
-      console.error("SSE connection error:", err);
-      evtSource.close();
+      console.warn("Temporary SSE connection error:", err);
+    };
+
+    evtSource.onopen = () => {
+      console.log("SSE connection opened or re-established");
     };
 
     return () => evtSource.close();

@@ -105,7 +105,6 @@ export const handlers = [
               filepath: "/mock/path/fake.nxs",
               status: "finished",
             });
-            controller.close();
           }
         }, 200);
       },
