@@ -134,11 +134,20 @@ function RawSpectroscopyData() {
         );
       }, 500); // ms: poll at 2 Hz
     } else if (pollInterval.current) {
+      // Stop the interval first to avoid overlaps
       clearInterval(pollInterval.current);
       pollInterval.current = null;
+
+      // One final poll to catch the last completed data
+      if (currentScan) {
+        pollMaps(currentScan).catch(err =>
+          console.warn("final pollMaps error:", err),
+        );
+      }
     }
 
     return () => {
+      // clean up on rerender and unmount
       if (pollInterval.current) {
         clearInterval(pollInterval.current);
         pollInterval.current = null;
