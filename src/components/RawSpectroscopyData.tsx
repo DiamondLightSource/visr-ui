@@ -1,7 +1,7 @@
 import { ImagePlot, type NDT } from "@diamondlightsource/davidia";
 import Box from "@mui/material/Box";
 import ndarray from "ndarray";
-import { useEffect, useRef, useState } from "react";
+import { useSpectroscopyData, type RGBColour } from "./useSpectroscopyData";
 
 type RGBColor = "red" | "green" | "blue" | "gray";
 
@@ -58,103 +58,16 @@ interface MapResponse {
   values: (number | null)[][];
 }
 
+async function fetchMap(filepath: string, datapath: string, colour: RGBColour) {
+  const url = `/api/data/map?filepath=${encodeURIComponent(filepath)}&datapath=${encodeURIComponent(datapath)}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(resp.statusText);
+  const mapResponse: MapResponse = await resp.json();
+  return toNDT(mapResponse.values, colour);
+}
+
 function RawSpectroscopyData() {
-  const [redChannel, setRedChannel] = useState<NDT | null>(null);
-  const [greenChannel, setGreenChannel] = useState<NDT | null>(null);
-  const [blueChannel, setBlueChannel] = useState<NDT | null>(null);
-  const [running, setRunning] = useState(false);
-  const [currentScan, setCurrentScan] = useState<string | null>(null);
-  const pollInterval = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Subscribe to /api/data/events (SSE)
-  useEffect(() => {
-    const evtSource = new EventSource("/api/data/events");
-
-    evtSource.onmessage = event => {
-      try {
-        const msg = JSON.parse(event.data);
-        console.log("SSE message:", msg);
-
-        if (msg.status === "running") {
-          setRunning(true);
-          setCurrentScan(msg.filepath);
-        } else if (msg.status === "finished" || msg.status === "failed") {
-          setRunning(false);
-          setCurrentScan(null);
-        }
-      } catch (err) {
-        console.error("Error parsing SSE:", err);
-      }
-    };
-
-    evtSource.onerror = err => {
-      console.warn("Temporary SSE connection error:", err);
-    };
-
-    evtSource.onopen = () => {
-      console.log("SSE connection opened or re-established");
-    };
-
-    return () => evtSource.close();
-  }, []);
-
-  useEffect(() => {
-    async function fetchMap(
-      filepath: string,
-      datapath: string,
-      colour: RGBColor = "gray",
-    ) {
-      const url = `/api/data/map?filepath=${encodeURIComponent(filepath)}&datapath=${encodeURIComponent(datapath)}`;
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error(resp.statusText);
-      const json: MapResponse = await resp.json();
-      return toNDT(json.values, colour);
-    }
-
-    async function pollMaps(filepath: string) {
-      try {
-        const detectorPath = "/entry/instrument/spectroscopy_detector/";
-        const [r, g, b] = await Promise.all([
-          fetchMap(filepath, detectorPath + "RedTotal", "red"),
-          fetchMap(filepath, detectorPath + "GreenTotal", "green"),
-          fetchMap(filepath, detectorPath + "BlueTotal", "blue"),
-        ]);
-        setRedChannel(r);
-        setGreenChannel(g);
-        setBlueChannel(b);
-      } catch (err) {
-        console.error("Polling error:", err);
-      }
-    }
-
-    if (running && currentScan) {
-      pollInterval.current = setInterval(() => {
-        pollMaps(currentScan).catch(err =>
-          console.warn("pollMaps error:", err),
-        );
-      }, 500); // ms: poll at 2 Hz
-    } else if (pollInterval.current) {
-      // Stop the interval first to avoid overlaps
-      clearInterval(pollInterval.current);
-      pollInterval.current = null;
-
-      // One final poll to catch the last completed data
-      if (currentScan) {
-        pollMaps(currentScan).catch(err =>
-          console.warn("final pollMaps error:", err),
-        );
-      }
-    }
-
-    return () => {
-      // clean up on rerender and unmount
-      if (pollInterval.current) {
-        clearInterval(pollInterval.current);
-        pollInterval.current = null;
-      }
-    };
-  }, [running, currentScan]);
-
+  const { data } = useSpectroscopyData(fetchMap);
   return (
     <Box
       sx={{
@@ -173,7 +86,7 @@ function RawSpectroscopyData() {
           title: "Red channel",
         }}
         customToolbarChildren={null}
-        values={redChannel || EMPTY_NDT}
+        values={data.red || EMPTY_NDT}
       />
 
       <ImagePlot
@@ -182,7 +95,7 @@ function RawSpectroscopyData() {
           title: "Green channel",
         }}
         customToolbarChildren={null}
-        values={greenChannel || EMPTY_NDT}
+        values={data.green || EMPTY_NDT}
       />
 
       <ImagePlot
@@ -191,7 +104,7 @@ function RawSpectroscopyData() {
           title: "Blue channel",
         }}
         customToolbarChildren={null}
-        values={blueChannel || EMPTY_NDT}
+        values={data.blue || EMPTY_NDT}
       />
     </Box>
   );
