@@ -15,6 +15,12 @@ export interface DataChannels {
   blue: NDT | null;
 }
 
+export interface ScanEventMessage {
+  status: "running" | "finished" | "failed";
+  filepath: string;
+  uuid: string;
+}
+
 export function useSpectroscopyData(fetchMap: FetchMapFunction) {
   const [running, setRunning] = useState<boolean>(false);
   const [filepath, setFilepath] = useState<string | null>(null);
@@ -33,7 +39,7 @@ export function useSpectroscopyData(fetchMap: FetchMapFunction) {
 
     evtSource.onmessage = event => {
       try {
-        const msg = JSON.parse(event.data);
+        const msg = JSON.parse(event.data) as ScanEventMessage;
         console.log("SSE message:", msg);
 
         if (msg.status === "running") {

@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import workflowsResponse from "./workflows-response.json";
 import plansResponse from "./plans-response.json";
 import instrumentSessionsResponse from "./instrumentSessions-response.json";
+import type { ScanEventMessage } from "../components/useSpectroscopyData";
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
@@ -79,9 +80,9 @@ export const handlers = [
     // Create a ReadableStream that emits fake scan events
     const stream = new ReadableStream({
       start(controller) {
-        const send = (obj: any) => {
+        const send = (event: ScanEventMessage) => {
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify(obj)}\n\n`),
+            encoder.encode(`data: ${JSON.stringify(event)}\n\n`),
           );
         };
 
