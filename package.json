@@ -13,6 +13,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@base-ui-components/react": "1.0.0-beta.7",
     "@diamondlightsource/davidia": "^1.0.3",
     "@diamondlightsource/sci-react-ui": "^0.2.0",
     "@emotion/react": "^11.14.0",
