@@ -102,7 +102,7 @@ export function useSpectroscopyData(fetchMap: FetchMapFunction) {
         pollInterval.current = null;
       }
     };
-  }, [running, filepath, fetchMap]);
+  }, [running, filepath, snake, fetchMap]);
 
   return { data, running };
 }
