@@ -1,8 +1,8 @@
 import { Box, TextField } from "@mui/material";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
-import NumberTextField from "./NumberTextField";
 import RunPlanButton from "../RunPlanButton";
 import { useState } from "react";
+import { NumberField } from "./NumberTextField";
 
 export type SpectroscopyFormData = {
   total_number_of_scan_points: number;
@@ -35,40 +35,45 @@ export function SpectroscopyForm() {
           flexGrow: 1,
         }}
       >
-        <NumberTextField
+        <NumberField
           formData={formData}
           setFormData={setFormData}
           field="grid_origin_x"
           step={0.1}
-          label="Grid origin x"
+          label="Grid Origin x"
+          mode="SCIENTIFIC"
         />
-        <NumberTextField
+        <NumberField
           formData={formData}
           setFormData={setFormData}
           field="grid_origin_y"
           step={0.1}
-          label="Grid origin y"
+          label="Grid Origin y"
+          mode="FLOATING"
         />
-        <NumberTextField
+        <NumberField
           formData={formData}
           setFormData={setFormData}
           field="grid_size"
           step={0.1}
-          label="Grid size"
+          label="Grid Size"
+          mode="INTEGER"
         />
-        <NumberTextField
+        <NumberField
           formData={formData}
           setFormData={setFormData}
           field="total_number_of_scan_points"
           step={1}
           label="Number of Points"
+          mode="NATURAL"
         />
-        <NumberTextField
+        <NumberField
           formData={formData}
           setFormData={setFormData}
           field="exposure_time"
           step={0.1}
-          label="Exposure time"
+          label="Exposure Time"
+          mode="FLOATING"
         />
         <TextField
           fullWidth

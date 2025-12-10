@@ -1,111 +1,84 @@
-import * as React from "react";
-import { NumberField } from "@base-ui-components/react/number-field";
-import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from "@mui/material/InputLabel";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
+import type { FC, ChangeEvent } from "react";
+import { useState } from "react";
+import { TextField } from "@mui/material";
 import type { SpectroscopyFormData } from "./SpectroscopyForm";
 
-export default function NumberTextField({
-  id: idProp,
-  formData,
-  setFormData,
-  field,
-  step,
-  label = field,
-  size = "medium",
-  ...other
-}: NumberField.Root.Props & {
+const Modes = {
+  NATURAL: /^([0-9]+)$/,
+  INTEGER: /^[+\\-]?([0-9]+)$/,
+  FLOATING:
+    /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))$/,
+  SCIENTIFIC:
+    /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))([eE][+\\-]?[0-9]+)?$/,
+};
+
+type Value = string;
+
+export type Props = {
   formData: SpectroscopyFormData;
   setFormData: (f: SpectroscopyFormData) => void;
   field: keyof SpectroscopyFormData;
-  step: number;
-  label?: React.ReactNode;
-  size?: "small" | "medium";
-}) {
-  let id = React.useId();
-  if (idProp) {
-    id = idProp;
-  }
+  step?: number;
+  label?: string;
+  mode?: keyof typeof Modes;
+  defaultValue?: Value;
+  onChange?: (value?: Value) => void;
+  max?: number;
+  min?: number;
+  placeholder?: string;
+  errorMessage?: string;
+};
 
-  const handleCommit = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
-  ) => {
-    const parsedValue = Number.isInteger(step)
-      ? parseInt(e.target.value, 10)
-      : parseFloat(e.target.value);
+export const NumberField: FC<Props> = ({
+  formData,
+  setFormData,
+  field,
+  step = 1,
+  label = "Numeric input",
+  mode = "FLOATING",
+  defaultValue = formData[field],
+  errorMessage = "Incorrect Input!",
+}) => {
+  const pattern = Modes[mode];
+  const [numberText, setNumberText] = useState("");
+  const [isValid, setIsValid] = useState(true);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setIsValid(pattern.test(value));
+    setNumberText(value);
+  };
+
+  const handleSubmit = () => {
+    const parsedValue = parseFloat(numberText);
     setFormData({ ...formData, [field]: parsedValue });
+    console.log("parsed value: ", parsedValue);
+  };
+
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === "Enter" && isValid && handleSubmit) {
+      handleSubmit();
+    }
+  };
+
+  const handleBlur = () => {
+    if (isValid && handleSubmit) {
+      handleSubmit();
+    }
   };
 
   return (
-    <NumberField.Root
-      value={formData[field]}
-      step={step}
-      {...other}
-      render={(props, state) => (
-        <FormControl
-          size={size}
-          ref={props.ref}
-          disabled={state.disabled}
-          required={state.required}
-          variant="outlined"
-        >
-          {props.children}
-        </FormControl>
-      )}
-    >
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-      <NumberField.Group>
-        <NumberField.Input
-          id={id}
-          render={(props, state) => (
-            <OutlinedInput
-              label={label}
-              inputRef={props.ref}
-              value={state.value}
-              onChange={props.onChange}
-              onKeyUp={props.onKeyUp}
-              onKeyDown={props.onKeyDown}
-              onBlur={e => handleCommit(e)}
-              onFocus={props.onFocus}
-              slotProps={{ input: props }}
-              fullWidth={true}
-              endAdornment={
-                <InputAdornment
-                  position="end"
-                  sx={{
-                    flexDirection: "column",
-                    maxHeight: "unset",
-                    alignSelf: "stretch",
-                    borderLeft: "1px solid",
-                    borderColor: "divider",
-                    ml: 0,
-                    "& button": { py: 0, flex: 1, borderRadius: 0.5 },
-                  }}
-                >
-                  <NumberField.Increment render={<IconButton size={size} />}>
-                    <KeyboardArrowUpIcon
-                      fontSize={size}
-                      sx={{ transform: "translateY(2px)" }}
-                    />
-                  </NumberField.Increment>
-                  <NumberField.Decrement render={<IconButton size={size} />}>
-                    <KeyboardArrowDownIcon
-                      fontSize={size}
-                      sx={{ transform: "translateY(-2px)" }}
-                    />
-                  </NumberField.Decrement>
-                </InputAdornment>
-              }
-              sx={{ pr: 0 }}
-            />
-          )}
-        />
-      </NumberField.Group>
-    </NumberField.Root>
+    <TextField
+      fullWidth
+      label={label}
+      type="text"
+      defaultValue={defaultValue}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      helperText={!isValid ? errorMessage : ""}
+      error={!isValid}
+      slotProps={{ htmlInput: { step: step } }}
+    />
   );
-}
+};
