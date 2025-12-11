@@ -1,8 +1,10 @@
-import { Box, TextField } from "@mui/material";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 import RunPlanButton from "../RunPlanButton";
 import { useState } from "react";
 import { NumberInput } from "../NumberFieldInput";
+import { Box } from "@mui/material";
+import { visitToText, VisitInput } from "@diamondlightsource/sci-react-ui";
+import { visitTextToVisit } from "../../utils/common";
 
 export type SpectroscopyFormData = {
   total_number_of_scan_points: number;
@@ -83,12 +85,13 @@ export function SpectroscopyForm() {
           }}
           submitButton={false}
         />
-        <TextField
-          fullWidth
-          id="instrumentSession"
-          label="Instrument Session"
-          defaultValue={instrumentSession}
-          onChange={e => setInstrumentSession(e.target.value)}
+        <VisitInput
+          visit={
+            visitTextToVisit(instrumentSession) ??
+            visitTextToVisit("cm12345-1") ??
+            undefined
+          }
+          onSubmit={visit => setInstrumentSession(visitToText(visit))}
         />
       </Box>
       <Box sx={{ mt: 4 }} display={"flex"} justifyContent={"center"}>
