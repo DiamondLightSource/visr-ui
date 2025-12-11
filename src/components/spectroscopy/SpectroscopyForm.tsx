@@ -2,7 +2,7 @@ import { Box, TextField } from "@mui/material";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 import RunPlanButton from "../RunPlanButton";
 import { useState } from "react";
-import { NumberField } from "./NumberTextField";
+import { NumberInput } from "../NumberFieldInput";
 
 export type SpectroscopyFormData = {
   total_number_of_scan_points: number;
@@ -35,45 +35,53 @@ export function SpectroscopyForm() {
           flexGrow: 1,
         }}
       >
-        <NumberField
-          formData={formData}
-          setFormData={setFormData}
-          field="grid_origin_x"
-          step={0.1}
+        <NumberInput
           label="Grid Origin x"
-          mode="SCIENTIFIC"
+          numberMode="SCIENTIFIC"
+          defaultValue={formData["grid_origin_x"]}
+          onSubmit={parsedValue => {
+            setFormData({ ...formData, ["grid_origin_x"]: parsedValue });
+          }}
+          submitButton={false}
         />
-        <NumberField
-          formData={formData}
-          setFormData={setFormData}
-          field="grid_origin_y"
-          step={0.1}
+        <NumberInput
           label="Grid Origin y"
-          mode="FLOATING"
+          numberMode="SCIENTIFIC"
+          defaultValue={formData["grid_origin_y"]}
+          onSubmit={parsedValue => {
+            setFormData({ ...formData, ["grid_origin_y"]: parsedValue });
+          }}
+          submitButton={false}
         />
-        <NumberField
-          formData={formData}
-          setFormData={setFormData}
-          field="grid_size"
-          step={0.1}
+        <NumberInput
           label="Grid Size"
-          mode="INTEGER"
+          numberMode="SCIENTIFIC"
+          defaultValue={formData["grid_size"]}
+          onSubmit={parsedValue => {
+            setFormData({ ...formData, ["grid_size"]: parsedValue });
+          }}
+          submitButton={false}
         />
-        <NumberField
-          formData={formData}
-          setFormData={setFormData}
-          field="total_number_of_scan_points"
-          step={1}
+        <NumberInput
           label="Number of Points"
-          mode="NATURAL"
+          numberMode="NATURAL"
+          defaultValue={formData["total_number_of_scan_points"]}
+          onSubmit={parsedValue => {
+            setFormData({
+              ...formData,
+              ["total_number_of_scan_points"]: parsedValue,
+            });
+          }}
+          submitButton={false}
         />
-        <NumberField
-          formData={formData}
-          setFormData={setFormData}
-          field="exposure_time"
-          step={0.1}
+        <NumberInput
           label="Exposure Time"
-          mode="FLOATING"
+          numberMode="SCIENTIFIC"
+          defaultValue={formData["exposure_time"]}
+          onSubmit={parsedValue => {
+            setFormData({ ...formData, ["exposure_time"]: parsedValue });
+          }}
+          submitButton={false}
         />
         <TextField
           fullWidth
