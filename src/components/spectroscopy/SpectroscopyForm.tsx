@@ -1,7 +1,7 @@
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 import RunPlanButton from "../RunPlanButton";
 import { useState } from "react";
-import { NumberInput } from "../NumberFieldInput";
+import { NumberInput } from "../NumberInput";
 import { Box } from "@mui/material";
 import { visitToText, VisitInput } from "@diamondlightsource/sci-react-ui";
 import { visitTextToVisit } from "../../utils/common";

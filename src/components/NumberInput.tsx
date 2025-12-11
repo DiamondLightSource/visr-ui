@@ -95,7 +95,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   const [isValid, setIsValid] = useState(true);
 
   const handleSubmit = () => {
-    const parsedValue = parseFloat(numberText);
+    const parsedValue: number = parseFloat(numberText);
     if (onSubmit) {
       onSubmit(parsedValue);
     }
