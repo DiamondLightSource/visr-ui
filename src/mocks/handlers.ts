@@ -2,8 +2,8 @@ import { http, HttpResponse, type HttpResponseResolver } from "msw";
 import workflowsResponse from "./workflows-response.json";
 import plansResponse from "./plans-response.json";
 import instrumentSessionsResponse from "./instrumentSessions-response.json";
-import type { ScanEventMessage } from "../components/useSpectroscopyData";
 import { mapData } from "./mock_data";
+import type { ScanEventMessage } from "../components/scanEventSource";
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
