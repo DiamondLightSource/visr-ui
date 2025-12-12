@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { type NDT } from "@diamondlightsource/davidia";
-import { useScanEvents } from "./useScanEvents";
+import { useScanEvents } from "../../hooks/scanEvents/useScanEvents";
 
 export type RGBColour = "red" | "green" | "blue" | "gray";
 

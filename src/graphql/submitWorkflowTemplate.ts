@@ -1,9 +1,9 @@
 import { commitMutation, graphql } from "react-relay";
 import type { Environment } from "relay-runtime";
 import type {
-  TemplateViewMutation as TemplateViewMutationType,
-  TemplateViewMutation$variables,
-} from "../components/__generated__/TemplateViewMutation.graphql";
+  submitWorkflowTemplateMutation as SubmitWorkflowType,
+  submitWorkflowTemplateMutation$variables as SubmitWorkflowVariables,
+} from "./__generated__/submitWorkflowTemplateMutation.graphql";
 
 const mutation = graphql`
   mutation submitWorkflowTemplateMutation(
@@ -29,10 +29,10 @@ const mutation = graphql`
  */
 export function submitWorkflowTemplate(
   environment: Environment,
-  variables: TemplateViewMutation$variables,
+  variables: SubmitWorkflowVariables,
 ): Promise<{ name: string }> {
   return new Promise((resolve, reject) => {
-    commitMutation<TemplateViewMutationType>(environment, {
+    commitMutation<SubmitWorkflowType>(environment, {
       mutation,
       variables,
       onCompleted: (response, errors) => {

@@ -6,14 +6,14 @@ import type {
   SubmissionGraphQLErrorMessage,
   SubmissionNetworkErrorMessage,
   SubmissionSuccessMessage,
-} from "../utils/types";
+} from "../../utils/types";
 import { type Visit, visitToText } from "@diamondlightsource/sci-react-ui";
 import SubmissionForm from "./SubmissionForm";
 import type { TemplateViewQuery as TemplateViewQueryType } from "./__generated__/TemplateViewQuery.graphql";
-import { visitTextToVisit } from "../utils/common";
+import { visitTextToVisit } from "../../utils/common";
 import { Box } from "@mui/material";
 import SubmittedMessagesList from "./SubmittedMessagesList";
-import { useSubmitWorkflow } from "../hooks/useSubmitWorkflow";
+import { useSubmitWorkflow } from "../../hooks/useSubmitWorkflow";
 
 const templateViewQuery = graphql`
   query TemplateViewQuery($templateName: String!) {

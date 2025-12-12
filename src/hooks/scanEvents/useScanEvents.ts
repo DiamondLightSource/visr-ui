@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { scanEventSource, type ScanEventMessage } from "./scanEventSource";
+import { scanEventSource } from "./scanEventSource";
+import type { ScanEventMessage } from "./types";
 
 export function useScanEvents() {
   const [scanEvent, setScanEvent] = useState<ScanEventMessage | null>(null);
