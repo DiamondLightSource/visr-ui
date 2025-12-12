@@ -1,4 +1,4 @@
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, type HttpResponseResolver } from "msw";
 import workflowsResponse from "./workflows-response.json";
 import plansResponse from "./plans-response.json";
 import instrumentSessionsResponse from "./instrumentSessions-response.json";
@@ -7,15 +7,17 @@ import { mapData } from "./mock_data";
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
+const graphqlResponseResolver: HttpResponseResolver = async ({ request }) => {
+  const referrer = request.referrer; // request is a native Fetch API Request
+  if (referrer?.includes("workflows")) {
+    return HttpResponse.json(workflowsResponse);
+  }
+  return HttpResponse.json(instrumentSessionsResponse);
+};
+
 export const handlers = [
-  http.post("/api/graphql", request => {
-    const referrer = request.request.referrer;
-    if (referrer.search("workflows") > 0) {
-      return HttpResponse.json(workflowsResponse);
-    } else {
-      return HttpResponse.json(instrumentSessionsResponse);
-    }
-  }),
+  http.post("/api/graphql", graphqlResponseResolver),
+  http.post("/api/workflows", graphqlResponseResolver), // temporary, until we use federated graph
 
   http.get("/api/plans", () => {
     return HttpResponse.json(plansResponse);
