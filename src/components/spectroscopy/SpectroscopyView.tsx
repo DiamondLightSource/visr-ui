@@ -19,20 +19,20 @@ function SpectroscopyView() {
   // set off workflow when scan ends
   const scanEvent = useScanEvents();
   const { instrumentSession } = useInstrumentSession();
+
+  const submitWorkflow = useSubmitWorkflow("visr-reconstruction");
+
   useEffect(() => {
-    async function submitWorkflow() {
-      const submit = useSubmitWorkflow("visr-reconstruction");
-      await submit(visitTextToVisit(instrumentSession)!, {
-        inpath: scanEvent?.filepath,
-      });
-    }
     if (!scanEvent || !instrumentSession) return;
     if (scanEvent.status == "finished") {
-      try {
-        submitWorkflow();
-      } catch (err) {
-        console.error("Error triggering workflow", err);
+      const visit = visitTextToVisit(instrumentSession);
+      if (!visit) {
+        console.warn("Invalid visit; cannot submit workflow");
+        return;
       }
+      submitWorkflow(visit, {
+        inpath: scanEvent.filepath,
+      });
     }
   });
 

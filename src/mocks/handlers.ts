@@ -1,23 +1,29 @@
-import { http, HttpResponse, type HttpResponseResolver } from "msw";
+import { http, HttpResponse, graphql } from "msw";
 import workflowsResponse from "./workflows-response.json";
 import plansResponse from "./plans-response.json";
-import instrumentSessionsResponse from "./instrumentSessions-response.json";
 import { mapData } from "./mock_data";
 import type { ScanEventMessage } from "../hooks/scanEvents";
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
-const graphqlResponseResolver: HttpResponseResolver = async ({ request }) => {
-  const referrer = request.referrer; // request is a native Fetch API Request
-  if (referrer?.includes("workflows")) {
-    return HttpResponse.json(workflowsResponse);
-  }
-  return HttpResponse.json(instrumentSessionsResponse);
-};
-
 export const handlers = [
-  http.post("/api/graphql", graphqlResponseResolver),
-  http.post("/api/workflows", graphqlResponseResolver), // temporary, until we use federated graph
+  // Query handler
+  graphql.query("TemplateViewQuery", async () => {
+    return HttpResponse.json({
+      data: workflowsResponse.data,
+    });
+  }),
+
+  // Mutation handler
+  graphql.mutation("submitWorkflowTemplateMutation", async () => {
+    return HttpResponse.json({
+      data: {
+        submitWorkflowTemplate: {
+          name: "mockSubmittedName",
+        },
+      },
+    });
+  }),
 
   http.get("/api/plans", () => {
     return HttpResponse.json(plansResponse);
