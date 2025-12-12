@@ -31,7 +31,7 @@ function SpectroscopyView() {
         return;
       }
       submitWorkflow(visit, {
-        inpath: scanEvent.filepath,
+        "input-file-path": scanEvent.filepath,
       });
     }
   });
