@@ -38,6 +38,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   submitOnBlur,
 }) => {
   const numberRegex = Modes[numberMode];
+  setIsValid(numberRegex.test(numberText));
 
   const handleInputChange = (value: string) => {
     setIsValid(numberRegex.test(value));

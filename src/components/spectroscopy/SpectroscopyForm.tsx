@@ -39,7 +39,7 @@ export function SpectroscopyForm() {
       >
         <NumberInput
           label="Grid Origin x"
-          numberMode="SCIENTIFIC"
+          numberMode="scientific"
           defaultValue={formData["grid_origin_x"]}
           onSubmit={parsedValue => {
             setFormData({ ...formData, ["grid_origin_x"]: parsedValue });
@@ -48,7 +48,7 @@ export function SpectroscopyForm() {
         />
         <NumberInput
           label="Grid Origin y"
-          numberMode="SCIENTIFIC"
+          numberMode="scientific"
           defaultValue={formData["grid_origin_y"]}
           onSubmit={parsedValue => {
             setFormData({ ...formData, ["grid_origin_y"]: parsedValue });
@@ -57,7 +57,7 @@ export function SpectroscopyForm() {
         />
         <NumberInput
           label="Grid Size"
-          numberMode="SCIENTIFIC"
+          numberMode="scientific"
           defaultValue={formData["grid_size"]}
           onSubmit={parsedValue => {
             setFormData({ ...formData, ["grid_size"]: parsedValue });
@@ -66,7 +66,7 @@ export function SpectroscopyForm() {
         />
         <NumberInput
           label="Number of Points"
-          numberMode="NATURAL"
+          numberMode="natural"
           defaultValue={formData["total_number_of_scan_points"]}
           onSubmit={parsedValue => {
             setFormData({
@@ -78,7 +78,7 @@ export function SpectroscopyForm() {
         />
         <NumberInput
           label="Exposure Time"
-          numberMode="SCIENTIFIC"
+          numberMode="scientific"
           defaultValue={formData["exposure_time"]}
           onSubmit={parsedValue => {
             setFormData({ ...formData, ["exposure_time"]: parsedValue });
