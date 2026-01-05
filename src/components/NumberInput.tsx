@@ -144,5 +144,5 @@ const NumberInput: React.FC<NumberInputProps> = ({
   );
 };
 
-export { NumberInput, NumberInputText };
-export type { NumberInputTextProps, NumberInputProps };
+export { NumberInput };
+export type { NumberInputProps };
