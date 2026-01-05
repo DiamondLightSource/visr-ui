@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Stack, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 
 const Modes = {
   /** Natural numbers from 0 to inf */
@@ -21,9 +21,9 @@ interface NumberInputTextProps {
   setNumberText: (v: string) => void;
   isValid: boolean;
   setIsValid: (v: boolean) => void;
-  handleSubmit?: () => void;
-  submitOnReturn?: boolean;
-  submitOnBlur?: boolean;
+  handleCommit?: () => void;
+  commitOnReturn?: boolean;
+  commitOnBlur?: boolean;
 }
 
 const NumberInputText: React.FC<NumberInputTextProps> = ({
@@ -33,12 +33,11 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   setNumberText,
   isValid,
   setIsValid,
-  handleSubmit,
-  submitOnReturn,
-  submitOnBlur,
+  handleCommit,
+  commitOnReturn,
+  commitOnBlur,
 }) => {
   const numberRegex = Modes[numberMode];
-  setIsValid(numberRegex.test(numberText));
 
   const handleInputChange = (value: string) => {
     setIsValid(numberRegex.test(value));
@@ -46,14 +45,14 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   };
 
   const handleKeyDown = (event: { key: string }) => {
-    if (event.key === "Enter" && submitOnReturn && isValid && handleSubmit) {
-      handleSubmit();
+    if (event.key === "Enter" && commitOnReturn && isValid && handleCommit) {
+      handleCommit();
     }
   };
 
   const handleBlur = () => {
-    if (isValid && submitOnBlur && handleSubmit) {
-      handleSubmit();
+    if (isValid && commitOnBlur && handleCommit) {
+      handleCommit();
     }
   };
 
@@ -75,59 +74,36 @@ interface NumberInputProps {
   label: string;
   numberMode: keyof typeof Modes;
   defaultValue: number | string;
-  onSubmit?: (number: number) => void;
+  onCommit?: (number: number) => void;
   number?: number;
   parameters?: object;
-  submitButton?: boolean;
-  submitOnReturn?: boolean;
-  submitOnBlur?: boolean;
+  commitOnReturn?: boolean;
+  commitOnBlur?: boolean;
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
   label,
   numberMode = "floating",
   defaultValue,
-  onSubmit,
-  submitButton = true,
-  submitOnReturn = true,
-  submitOnBlur = true,
+  onCommit,
+  commitOnReturn = true,
+  commitOnBlur = true,
 }) => {
   const [numberText, setNumberText] = useState(defaultValue.toString());
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(
+    Modes[numberMode].test(defaultValue.toString()),
+  );
 
-  const handleSubmit = () => {
+  const handleCommit = () => {
     const parsedValue: number = parseFloat(numberText);
-    if (onSubmit) {
-      onSubmit(parsedValue);
+    if (onCommit) {
+      onCommit(parsedValue);
     }
   };
 
   return (
     <>
-      {onSubmit && submitButton ? (
-        <Stack direction="row" alignContent="end" spacing={1} alignSelf="end">
-          <NumberInputText
-            label={label}
-            numberMode={numberMode}
-            numberText={numberText}
-            setNumberText={setNumberText}
-            isValid={isValid}
-            setIsValid={setIsValid}
-            handleSubmit={handleSubmit}
-            submitOnReturn={submitOnReturn}
-            submitOnBlur={submitOnBlur}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-            disabled={!isValid}
-            data-testid="submit-button"
-          >
-            Submit
-          </Button>
-        </Stack>
-      ) : (
+      {
         <NumberInputText
           label={label}
           numberMode={numberMode}
@@ -135,11 +111,11 @@ const NumberInput: React.FC<NumberInputProps> = ({
           setNumberText={setNumberText}
           isValid={isValid}
           setIsValid={setIsValid}
-          handleSubmit={handleSubmit}
-          submitOnReturn={submitOnReturn}
-          submitOnBlur={submitOnBlur}
+          handleCommit={handleCommit}
+          commitOnReturn={commitOnReturn}
+          commitOnBlur={commitOnBlur}
         />
-      )}
+      }
     </>
   );
 };

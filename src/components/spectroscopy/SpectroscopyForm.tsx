@@ -41,49 +41,44 @@ export function SpectroscopyForm() {
           label="Grid Origin x"
           numberMode="scientific"
           defaultValue={formData["grid_origin_x"]}
-          onSubmit={parsedValue => {
+          onCommit={parsedValue => {
             setFormData({ ...formData, ["grid_origin_x"]: parsedValue });
           }}
-          submitButton={false}
         />
         <NumberInput
           label="Grid Origin y"
           numberMode="scientific"
           defaultValue={formData["grid_origin_y"]}
-          onSubmit={parsedValue => {
+          onCommit={parsedValue => {
             setFormData({ ...formData, ["grid_origin_y"]: parsedValue });
           }}
-          submitButton={false}
         />
         <NumberInput
           label="Grid Size"
           numberMode="scientific"
           defaultValue={formData["grid_size"]}
-          onSubmit={parsedValue => {
+          onCommit={parsedValue => {
             setFormData({ ...formData, ["grid_size"]: parsedValue });
           }}
-          submitButton={false}
         />
         <NumberInput
           label="Number of Points"
           numberMode="natural"
           defaultValue={formData["total_number_of_scan_points"]}
-          onSubmit={parsedValue => {
+          onCommit={parsedValue => {
             setFormData({
               ...formData,
               ["total_number_of_scan_points"]: parsedValue,
             });
           }}
-          submitButton={false}
         />
         <NumberInput
           label="Exposure Time"
           numberMode="scientific"
           defaultValue={formData["exposure_time"]}
-          onSubmit={parsedValue => {
+          onCommit={parsedValue => {
             setFormData({ ...formData, ["exposure_time"]: parsedValue });
           }}
-          submitButton={false}
         />
         <VisitInput
           visit={
