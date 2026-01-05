@@ -3,14 +3,14 @@ import { Button, Stack, TextField } from "@mui/material";
 
 const Modes = {
   /** Natural numbers from 0 to inf */
-  NATURAL: /^([0-9]+)$/,
+  natural: /^([0-9]+)$/,
   /** Integers from -inf to inf */
-  INTEGER: /^[+\\-]?([0-9]+)$/,
+  integer: /^[+\\-]?([0-9]+)$/,
   /** Floating point numbers from -inf to inf, accepts values such as 1. and .1 as valid*/
-  FLOATING:
+  floating:
     /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))$/,
   /** Floating point numbers from -inf to inf, accepts values such as 1.e1 and .1e1 as valid*/
-  SCIENTIFIC:
+  scientific:
     /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))([eE][+\\-]?[0-9]+)?$/,
 };
 
@@ -84,7 +84,7 @@ interface NumberInputProps {
 
 const NumberInput: React.FC<NumberInputProps> = ({
   label,
-  numberMode = "FLOATING",
+  numberMode = "floating",
   defaultValue,
   onSubmit,
   submitButton = true,
