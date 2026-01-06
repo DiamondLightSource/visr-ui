@@ -87,6 +87,7 @@ export function SpectroscopyForm() {
             undefined
           }
           onSubmit={visit => setInstrumentSession(visitToText(visit))}
+          submitButton={false}
         />
       </Box>
       <Box sx={{ mt: 4 }} display={"flex"} justifyContent={"center"}>
