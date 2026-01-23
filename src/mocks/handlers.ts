@@ -7,14 +7,6 @@ import workflowsSubscriptionResponse from "./workflows-subscription-response.jso
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
-type WorkflowsSubscriptionMessage = {
-  t?: string;
-  type: string;
-  id?: string;
-  payload?: unknown;
-};
-
-
 export const handlers = [
   // Query handler
   graphql.query("TemplateViewQuery", async () => {
@@ -108,41 +100,70 @@ export const handlers = [
     });
   }),
 
-  ...createGraphQLWsSubscriptionHandlers(),
+  ...createGraphQLWsSubscriptionHandlers("/ws"),
 ];
 
 
 
-function createGraphQLWsSubscriptionHandlers() {
-  // Match whatever WS URL your Relay network layer uses
-  const graphqlSocket = ws.link("ws://localhost:4000/graphql");
+type WorkflowsSubscriptionMessage = {
+  t?: string;
+  type: string;
+  id?: string;
+  payload?: unknown;
+};
+
+export function createInstantWsSubscriptionHandlers(url: string) {
+  const link = ws.link(url);
 
   return [
-    
-graphqlSocket.addEventListener("connection", ({ client }: { client: any }) => {
-    client.on("message", (event: any) => {
-      const data = typeof event.data === "string" ? event.data : String(event.data);
+    link.addEventListener("connection", ({ client }) => {
+      let ackSent = false;
 
-      // Parse the incoming message safely
-      const msg = JSON.parse(data);
-      if (!msg) return;
+      client.addEventListener("message", (event) => {
+        const text = typeof event.data === "string" ? event.data : String(event.data);
 
-      // Example: if you're using graphql-ws protocol, listen for "subscribe"
-      if (msg.type === "subscribe") {
-        // Send a mocked "next" payload
-        client.send(
-          JSON.stringify({
-            type: "next",
-            id: msg.id ?? "1",
-            payload: {
-              data: {
-                
-              },
-            },
-          }),
-        );
-      }
-    });
-  }),
-];
+        let msg: any;
+        try { msg = JSON.parse(text); } catch { return; }
+
+        // Handle graphql-transport-ws handshake
+        if (msg.type === "connection_init") {
+          if (!ackSent) {
+            ackSent = true;
+            client.send(JSON.stringify({ type: "connection_ack" }));
+          }
+          return;
+        }
+
+        // Optional protocol ping/pong
+        if (msg.type === "ping") {
+          client.send(JSON.stringify({ type: "pong", payload: msg.payload }));
+          return;
+        }
+
+        // Subscription start → send entire recording instantly
+        if (msg.type === "subscribe") {
+          const subId = msg.id ?? "1";
+
+          for (const frame of workflowsSubscriptionResponse as WorkflowsSubscriptionMessage[]) {
+            // rewrite id to match the client's id
+            const out = { ...frame, id: subId };
+            client.send(JSON.stringify(out));
+          }
+
+          // If the recording didn't include a "complete", add one
+          if (!(workflowsSubscriptionResponse as WorkflowsSubscriptionMessage[]).some(m => m.type === "complete")) {
+            client.send(JSON.stringify({ type: "complete", id: subId }));
+          }
+
+          return;
+        }
+
+        // Client stops subscription
+        if (msg.type === "complete") {
+          return;
+        }
+      });
+    }),
+  ];
 }
+
