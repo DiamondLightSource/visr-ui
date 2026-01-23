@@ -7,7 +7,7 @@ import { useScanEvents, type ScanEventMessage } from "../../hooks/scanEvents";
 import { useSubmitWorkflow } from "../../hooks/useSubmitWorkflow";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 import { visitTextToVisit } from "../../utils/common";
-import { useWorkflowArtifacts, type WorkflowArtifact } from "../../hooks/useWorkflowArtifacts";
+import { useWorkflowArtifacts } from "../../hooks/useWorkflowArtifacts";
 import type { VisitInput } from "../../graphql/__generated__/submitWorkflowTemplateMutation.graphql";
 
 export type SpectroscopyFormData = {

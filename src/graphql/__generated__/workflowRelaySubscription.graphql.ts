@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<20fc8e13148ce239705e3b7c73dfb366>>
+ * @generated SignedSource<<5a0b07d926ad9c65f9da31b788c35bba>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -130,93 +130,28 @@ v1 = {
   "kind": "LocalArgument",
   "name": "visit"
 },
-v2 = [
-  {
-    "kind": "Variable",
-    "name": "name",
-    "variableName": "name"
-  },
-  {
-    "kind": "Variable",
-    "name": "visit",
-    "variableName": "visit"
-  }
-],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Visit",
-  "kind": "LinkedField",
-  "name": "visit",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "proposalCode",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "proposalNumber",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "number",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "templateRef",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "parameters",
-  "storageKey": null
-},
-v7 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "message",
   "storageKey": null
 },
-v8 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "startTime",
   "storageKey": null
 },
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v10 = {
+v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Task",
@@ -224,9 +159,15 @@ v10 = {
   "name": "tasks",
   "plural": true,
   "selections": [
-    (v7/*: any*/),
-    (v9/*: any*/),
     (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -263,7 +204,7 @@ v10 = {
       "name": "artifacts",
       "plural": true,
       "selections": [
-        (v3/*: any*/),
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -284,8 +225,8 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = [
-  (v8/*: any*/),
+v6 = [
+  (v4/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -293,63 +234,134 @@ v11 = [
     "name": "endTime",
     "storageKey": null
   },
-  (v7/*: any*/),
-  (v10/*: any*/)
+  (v3/*: any*/),
+  (v5/*: any*/)
 ],
-v12 = {
-  "alias": null,
-  "args": null,
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "status",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v7/*: any*/)
-      ],
-      "type": "WorkflowPendingStatus",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v8/*: any*/),
-        (v7/*: any*/),
-        (v10/*: any*/)
-      ],
-      "type": "WorkflowRunningStatus",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v11/*: any*/),
-      "type": "WorkflowSucceededStatus",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v11/*: any*/),
-      "type": "WorkflowFailedStatus",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v11/*: any*/),
-      "type": "WorkflowErroredStatus",
-      "abstractKey": null
-    }
-  ],
-  "storageKey": null
-};
+v7 = [
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "name",
+        "variableName": "name"
+      },
+      {
+        "kind": "Variable",
+        "name": "visit",
+        "variableName": "visit"
+      }
+    ],
+    "concreteType": "Workflow",
+    "kind": "LinkedField",
+    "name": "workflow",
+    "plural": false,
+    "selections": [
+      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Visit",
+        "kind": "LinkedField",
+        "name": "visit",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "proposalCode",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "proposalNumber",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "number",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "templateRef",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "parameters",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "status",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "__typename",
+            "storageKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v3/*: any*/)
+            ],
+            "type": "WorkflowPendingStatus",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v4/*: any*/),
+              (v3/*: any*/),
+              (v5/*: any*/)
+            ],
+            "type": "WorkflowRunningStatus",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": (v6/*: any*/),
+            "type": "WorkflowSucceededStatus",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": (v6/*: any*/),
+            "type": "WorkflowFailedStatus",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": (v6/*: any*/),
+            "type": "WorkflowErroredStatus",
+            "abstractKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -359,24 +371,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "workflowRelaySubscription",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "Workflow",
-        "kind": "LinkedField",
-        "name": "workflow",
-        "plural": false,
-        "selections": [
-          (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
-          (v6/*: any*/),
-          (v12/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v7/*: any*/),
     "type": "Subscription",
     "abstractKey": null
   },
@@ -388,33 +383,15 @@ return {
     ],
     "kind": "Operation",
     "name": "workflowRelaySubscription",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "Workflow",
-        "kind": "LinkedField",
-        "name": "workflow",
-        "plural": false,
-        "selections": [
-          (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
-          (v6/*: any*/),
-          (v12/*: any*/),
-          (v9/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "f1955976156390e54f6611be53449164",
+    "cacheID": "6ed1b132e2e60d23c7f960a4d13b549f",
     "id": null,
     "metadata": {},
     "name": "workflowRelaySubscription",
     "operationKind": "subscription",
-    "text": "subscription workflowRelaySubscription(\n  $visit: VisitInput!\n  $name: String!\n) {\n  workflow(visit: $visit, name: $name) {\n    name\n    visit {\n      proposalCode\n      proposalNumber\n      number\n    }\n    templateRef\n    parameters\n    status {\n      __typename\n      ... on WorkflowPendingStatus {\n        message\n      }\n      ... on WorkflowRunningStatus {\n        startTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowSucceededStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowFailedStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowErroredStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "subscription workflowRelaySubscription(\n  $visit: VisitInput!\n  $name: String!\n) {\n  workflow(visit: $visit, name: $name) {\n    name\n    visit {\n      proposalCode\n      proposalNumber\n      number\n    }\n    templateRef\n    parameters\n    status {\n      __typename\n      ... on WorkflowPendingStatus {\n        message\n      }\n      ... on WorkflowRunningStatus {\n        startTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowSucceededStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowFailedStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n      ... on WorkflowErroredStatus {\n        startTime\n        endTime\n        message\n        tasks {\n          message\n          id\n          name\n          status\n          depends\n          dependencies\n          stepType\n          artifacts {\n            name\n            url\n            mimeType\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();

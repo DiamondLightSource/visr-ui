@@ -1,8 +1,8 @@
-import { useSubscription, graphql } from "react-relay";
+import { useSubscription } from "react-relay";
 import type { VisitInput } from "../graphql/__generated__/workflowsQuery.graphql";
 import { useState } from "react";
-import { workflowSubscription } from "../graphql/workflowSubscription";
-const {useMemo} = require('React');
+import { workflowSubscription } from "../graphql/workflowRelaySubscription";
+import {useMemo} from "react";
 
 export interface WorkflowArtifact {
   name: string
@@ -21,7 +21,7 @@ export function useWorkflowArtifacts(
   const config = useMemo(() => { 
     if (!enabled) return null;
     return ({
-    workflowSubscription,
+    subscription:workflowSubscription,
     variables: {visit, name},
     onNext: (response: any) => {
         const artifacts = (response?.status?.tasks ?? [])
