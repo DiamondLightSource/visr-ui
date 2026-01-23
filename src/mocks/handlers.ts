@@ -100,7 +100,7 @@ export const handlers = [
     });
   }),
 
-  ...createGraphQLWsSubscriptionHandlers("/ws"),
+  ...createGraphQlSubscriptionHandlers("/ws"),
 ];
 
 
@@ -112,7 +112,7 @@ type WorkflowsSubscriptionMessage = {
   payload?: unknown;
 };
 
-export function createInstantWsSubscriptionHandlers(url: string) {
+export function createGraphQlSubscriptionHandlers(url: string) {
   const link = ws.link(url);
 
   return [

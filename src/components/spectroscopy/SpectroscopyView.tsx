@@ -3,11 +3,12 @@ import ProcessedSpectroscopyData from "./ProcessedSpectroscopyData";
 import RawSpectroscopyData from "./RawSpectroscopyData";
 import { SpectroscopyForm } from "./SpectroscopyForm";
 import { useEffect, useState } from "react";
-import { useScanEvents } from "../../hooks/scanEvents";
+import { useScanEvents, type ScanEventMessage } from "../../hooks/scanEvents";
 import { useSubmitWorkflow } from "../../hooks/useSubmitWorkflow";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
 import { visitTextToVisit } from "../../utils/common";
 import { useWorkflowArtifacts, type WorkflowArtifact } from "../../hooks/useWorkflowArtifacts";
+import type { VisitInput } from "../../graphql/__generated__/submitWorkflowTemplateMutation.graphql";
 
 export type SpectroscopyFormData = {
   total_number_of_scan_points: number;
@@ -33,9 +34,14 @@ function SpectroscopyView() {
         console.warn("Invalid visit; cannot submit workflow");
         return;
       }
-      submitWorkflow(visit, {
+      async function doSubmitWorkflow(visit: VisitInput, scanEvent: ScanEventMessage) {
+      const submittedWorkflow = await submitWorkflow(visit, {
         "input-file-path": scanEvent.filepath,
       });
+      setWorkflowName(submittedWorkflow.name)
+    }
+    doSubmitWorkflow(visit, scanEvent);
+    return
     }
   });
 
