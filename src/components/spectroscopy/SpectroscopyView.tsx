@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import ProcessedSpectroscopyData from "./ProcessedSpectroscopyData";
 import RawSpectroscopyData from "./RawSpectroscopyData";
 import { SpectroscopyForm } from "./SpectroscopyForm";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useScanEvents, type ScanEventMessage } from "../../hooks/scanEvents";
 import { useSubmitWorkflow } from "../../hooks/useSubmitWorkflow";
 import { useInstrumentSession } from "../../context/instrumentSession/useInstrumentSession";
@@ -22,7 +22,7 @@ function SpectroscopyView() {
   // set off workflow when scan ends
   const scanEvent = useScanEvents();
   const { instrumentSession } = useInstrumentSession();
-  const visit = visitTextToVisit(instrumentSession);
+  const visit = useMemo(() => { return visitTextToVisit(instrumentSession); }, [instrumentSession]);
   const [workflowName, setWorkflowName] = useState<string>("");
   const submitWorkflow = useSubmitWorkflow("visr-reconstruction");
   const workflowArtifacts = useWorkflowArtifacts(visit, workflowName);
