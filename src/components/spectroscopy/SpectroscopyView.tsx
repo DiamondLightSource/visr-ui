@@ -45,7 +45,7 @@ function SpectroscopyView() {
     doSubmitWorkflow(visit, scanEvent);
     return
     }
-  });
+  }, [scanEvent, instrumentSession]);
 
   return (
     <Box
