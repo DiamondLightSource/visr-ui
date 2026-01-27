@@ -23,6 +23,7 @@ export function useWorkflowArtifacts(
   console.log("SUBSCRIPTION IS ENABLED:", enabled)
 
   useEffect(() => {
+    console.log("STARTING SUBSCRIPTION:", environment, enabled, visit, name)
     if  ((!isValidVisit(visit)) || isBlank(name)) {
       return;
     }
