@@ -10,8 +10,21 @@ import {
 } from "relay-runtime";
 import { createClient } from "graphql-ws";
 
+function getWsEndpoint(path: string) {
+  const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
+  return `${proto}//${window.location.host}${path}`;
+}
+
+export const WS_ENDPOINT = getWsEndpoint("/api/workflows/ws");
+
+let RelayEnvironment: Environment | null = null;
+
+export function getRelayEnvironment(): Environment {
+  if (!RelayEnvironment) {
+
+
 const HTTP_ENDPOINT = "/api/workflows";
-const WS_ENDPOINT = "/api/workflows/ws";
+
 const fetchFn: FetchFunction = async (request, variables) => {
   const resp = await fetch(HTTP_ENDPOINT, {
     method: "POST",
@@ -61,12 +74,10 @@ const subscribeFn: SubscribeFunction = (operation, variables) => {
   });
 };
 
-
-function createRelayEnvironment() {
-  return new Environment({
-    network: Network.create(fetchFn, subscribeFn),
-    store: new Store(new RecordSource()),
-  });
+    RelayEnvironment = new Environment({
+      network: Network.create(fetchFn, subscribeFn),
+      store: new Store(new RecordSource()),
+    });
+  }
+  return RelayEnvironment;
 }
-
-export const RelayEnvironment = createRelayEnvironment();
