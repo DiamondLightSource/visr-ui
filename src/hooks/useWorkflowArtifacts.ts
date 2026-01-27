@@ -20,6 +20,7 @@ export function useWorkflowArtifacts(
   const [artifacts, setArtifacts] = useState<WorkflowArtifact[]>([]);
 
   const enabled = isValidVisit(visit) && !isBlank(name);
+  console.log("SUBSCRIPTION IS ENABLED:", enabled)
 
   // Ensure the variables are non-null when enabled
   const variables = useMemo(() => {
@@ -28,6 +29,7 @@ export function useWorkflowArtifacts(
   }, [enabled, visit, name]);
 
   useEffect(() => {
+    console.log("STARTING SUBSCRIPTION:", enabled, variables)
     // If disabled, clear results and do not subscribe.
     if (!enabled || !variables) {
       setArtifacts([]);
@@ -38,6 +40,7 @@ export function useWorkflowArtifacts(
       subscription: workflowSubscription,
       variables,
       onNext: (response: any) => {
+        console.error("HANDLING SUBSCRIPTION RESPONSE:", response);
         const nextArtifacts =
           (response?.status?.tasks ?? []).flatMap(
             (task: any) => task?.artifacts ?? []

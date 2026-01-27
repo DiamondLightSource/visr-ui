@@ -119,10 +119,12 @@ export function createGraphQlSubscriptionHandlers() {
 
   return link.addEventListener("connection", ({ client }) => {
       let ackSent = false;
+      console.log("[msw] intercepted WS connection:", client.url);
 
       client.addEventListener("message", (event) => {
+        console.log("[msw] client -> server:", event.data);
         const text = typeof event.data === "string" ? event.data : String(event.data);
-
+        console.error("HANDLING SUBSCRIPTION:", event);
         let msg: any;
         try { msg = JSON.parse(text); } catch { return; }
 
@@ -161,6 +163,7 @@ export function createGraphQlSubscriptionHandlers() {
 
         // Client stops subscription
         if (msg.type === "complete") {
+          console.log("[msw] client complete");
           return;
         }
       });

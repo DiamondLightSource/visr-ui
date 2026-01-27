@@ -42,12 +42,21 @@ const fetchFn: FetchFunction = async (request, variables) => {
   return await resp.json();
 };
 
-export const wsClient = createClient({
+const wsClient = createClient({
   url: WS_ENDPOINT,
 });
 
 const subscribeFn: SubscribeFunction = (operation, variables) => {
+
+  console.log("[subscribeFn] called", {
+    op: operation.name,
+    hasText: !!operation.text,
+    variables,
+    WS_ENDPOINT,
+  });
+
   return Observable.create((sink) => {
+    console.log("[subscribeFn] Observable subscribed");
     const cleanup = wsClient.subscribe(
       {
         operationName: operation.name,
@@ -56,6 +65,7 @@ const subscribeFn: SubscribeFunction = (operation, variables) => {
       },
       {
         next: (response: any) => {
+          console.log("[subscribeFn] Observable got response", response);
           const data = response.data;
           if (data) {
             sink.next({ data } as GraphQLResponse);

@@ -35,9 +35,11 @@ function SpectroscopyView() {
         return;
       }
       async function doSubmitWorkflow(visit: VisitInput, scanEvent: ScanEventMessage) {
+        console.error("SUBMITTING WORKFLOW visit:", visit);
       const submittedWorkflow = await submitWorkflow(visit, {
         "input-file-path": scanEvent.filepath,
       });
+      console.error("SUBMITTED WORKFLOW NAME:", submittedWorkflow);
       setWorkflowName(submittedWorkflow.name)
     }
     doSubmitWorkflow(visit, scanEvent);
