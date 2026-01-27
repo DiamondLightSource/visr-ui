@@ -4,10 +4,14 @@ import plansResponse from "./plans-response.json";
 import { mapData } from "./mock_data";
 import type { ScanEventMessage } from "../hooks/scanEvents";
 import workflowsSubscriptionResponse from "./workflows-subscription-response.json";
+import{ WS_ENDPOINT } from "../RelayEnvironment";
 
 const fakeTaskId = "7304e8e0-81c6-4978-9a9d-9046ab79ce3c";
 
 export const handlers = [
+
+  createGraphQlSubscriptionHandlers(),
+
   // Query handler
   graphql.query("TemplateViewQuery", async () => {
     return HttpResponse.json({
@@ -99,8 +103,6 @@ export const handlers = [
       },
     });
   }),
-
-  ...createGraphQlSubscriptionHandlers("/ws"),
 ];
 
 
@@ -112,11 +114,10 @@ type WorkflowsSubscriptionMessage = {
   payload?: unknown;
 };
 
-export function createGraphQlSubscriptionHandlers(url: string) {
-  const link = ws.link(url);
+export function createGraphQlSubscriptionHandlers() {
+  const link = ws.link(WS_ENDPOINT);
 
-  return [
-    link.addEventListener("connection", ({ client }) => {
+  return link.addEventListener("connection", ({ client }) => {
       let ackSent = false;
 
       client.addEventListener("message", (event) => {
@@ -163,7 +164,7 @@ export function createGraphQlSubscriptionHandlers(url: string) {
           return;
         }
       });
-    }),
-  ];
+    })
+  ;
 }
 
