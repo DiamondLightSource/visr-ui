@@ -1,5 +1,5 @@
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRelayEnvironment } from "react-relay";
 import { requestSubscription } from "relay-runtime";
 
@@ -51,7 +51,10 @@ export function useWorkflowArtifacts(
     return () => {
       disposable.dispose();
     };
-  }, [visit, name]);
+  }, [visit?.number,
+      visit?.proposalCode,
+      visit?.proposalNumber,
+    name]);
 
   return artifacts;
 }

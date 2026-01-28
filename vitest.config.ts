@@ -1,6 +1,19 @@
 import { defineConfig } from "vitest/config";
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          // Ensure this is installed: `pnpm add -D babel-plugin-relay`
+          ['babel-plugin-relay', { artifactDirectory: './src/graphql/__generated__' }],
+        ],
+      },
+    }),
+  ],
+
+
   test: {
     // Use jsdom so RTL can render components
     environment: "jsdom",
@@ -16,3 +29,4 @@ export default defineConfig({
     reporters: ["verbose"],
   },
 });
+
