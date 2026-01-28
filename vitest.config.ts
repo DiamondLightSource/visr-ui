@@ -1,6 +1,21 @@
 import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          // Enable graphql in tests
+          [
+            "babel-plugin-relay",
+            { artifactDirectory: "./src/graphql/__generated__" },
+          ],
+        ],
+      },
+    }),
+  ],
+
   test: {
     // Use jsdom so RTL can render components
     environment: "jsdom",
