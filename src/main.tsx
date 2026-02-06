@@ -18,12 +18,12 @@ declare global {
 window.global ||= window;
 import Workflows from "./routes/Workflows.tsx";
 import { RelayEnvironmentProvider } from "react-relay";
-import { RelayEnvironment } from "./RelayEnvironment.ts";
+import { getRelayEnvironment } from "./RelayEnvironment.ts";
 
 async function enableMocking() {
   if (import.meta.env.DEV) {
     const { worker } = await import("./mocks/browser");
-    return worker.start();
+    return await worker.start();
   }
 }
 
@@ -53,8 +53,9 @@ const router = createBrowserRouter([
 ]);
 
 enableMocking().then(() => {
+  const environment = getRelayEnvironment();
   createRoot(document.getElementById("root")!).render(
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
+    <RelayEnvironmentProvider environment={environment}>
       <InstrumentSessionProvider>
         <StrictMode>
           <ThemeProvider theme={DiamondTheme} defaultMode="light">
